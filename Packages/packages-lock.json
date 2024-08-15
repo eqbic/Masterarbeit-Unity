@@ -7,7 +7,7 @@
       "dependencies": {
         "com.unity.textmeshpro": ""
       },
-      "hash": "367fbccc9e38517471538ae060d98648ecdcbe40"
+      "hash": "2e22d527c90fa474707dd2dc9f440eab961c6d66"
     },
     "com.interactive-scape.tuio_client": {
       "version": "https://github.com/InteractiveScapeGmbH/TuioUnityClient.git",

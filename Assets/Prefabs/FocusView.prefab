@@ -205,6 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _zoomGesture: {fileID: 6697369712331897270}
   _panGesture: {fileID: 1195022231401049622}
+  _zoomSpeed: 2
 --- !u!114 &6697369712331897270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +213,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2977748129953188933}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74ae431eff8434b0897d3f7f1cff4311, type: 3}
   m_Name: 
@@ -244,7 +245,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   type: 4
-  screenTransformThreshold: 0.2
+  screenTransformThreshold: 0.5
   minScreenPointsDistance: 0.5
 --- !u!114 &1195022231401049622
 MonoBehaviour:
