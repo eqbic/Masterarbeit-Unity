@@ -40,7 +40,8 @@ public class FocusView : MonoBehaviour
         _focusMapControl.OnZoom += UpdateZoom;
         _focusMapControl.OnPan += UpdatePosition;
         _resetTap.Tapped += ResetOffset;
-    }
+        _focusMapControl.OnRotate += UpdateRotation;
+   }
 
     private void OnDestroy()
     {
@@ -49,7 +50,13 @@ public class FocusView : MonoBehaviour
         _focusMapControl.OnZoom -= UpdateZoom;
         _focusMapControl.OnPan -= UpdatePosition;
         _resetTap.Tapped -= ResetOffset;
+        _focusMapControl.OnRotate -= UpdateRotation;
 
+    }
+
+    private void UpdateRotation(float deltaDegree)
+    {
+        _rect.Rotate(Vector3.forward, deltaDegree);
     }
 
     private void ResetOffset(object sender, EventArgs e)
