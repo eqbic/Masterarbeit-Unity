@@ -13,6 +13,8 @@ namespace UI
         
         private static readonly int OutlineColor = Shader.PropertyToID("_Outline_Color");
         private static readonly int Thickness = Shader.PropertyToID("_Thickness");
+        private static readonly int HasTexture = Shader.PropertyToID("_Has_Texture");
+        
         private MaskableGraphic _graphic;
         private RectTransform _rectTransform;
         public Material Material { get; private set; }
@@ -36,23 +38,24 @@ namespace UI
             _graphic = GetComponent<Image>();
         }
 
-        public void Init()
+        public void Init(bool hasTexture = false)
         {
             Color = Random.ColorHSV(0f, 1f, 0.5f, 0.7f, 1f, 1f);
-            SetupMaterial(_graphic, Color);
+            SetupMaterial(_graphic, Color, hasTexture);
         }
 
-        public void Init(Color color)
+        public void Init(Color color, bool hasTexture = false)
         {
             Color = color;
-            SetupMaterial(_graphic, Color);
+            SetupMaterial(_graphic, Color, hasTexture);
         }
 
-        private void SetupMaterial(MaskableGraphic graphic, Color color)
+        private void SetupMaterial(MaskableGraphic graphic, Color color, bool hasTexture)
         {
             Material = new Material(_shader);
             Material.SetColor(OutlineColor, color);
             Material.SetFloat(Thickness, _outlineThickness);
+            Material.SetInt(HasTexture, hasTexture ? 1 : 0);
             graphic.material = Material;
         }
     }
