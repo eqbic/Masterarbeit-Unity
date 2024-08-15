@@ -14,6 +14,7 @@ public class ViewFinder : MonoBehaviour
     [SerializeField] private Shader _shader;
     [SerializeField] private LongPressGesture _longPress;
     [SerializeField] private ConnectionUI _connectionUI;
+    [SerializeField] private LineRenderer _offsetLine;
     
     private GeoCoordChannel _viewFinderChannel;
     private GeoCoordChannel _focusViewChannel;
@@ -46,8 +47,21 @@ public class ViewFinder : MonoBehaviour
         _focus = _focusViewSpawner.Spawn(transform.parent, _viewFinderChannel, _focusViewChannel, focusPosition, material);
         _longPress.LongPressed += DestroyViews;
         _connectionUI.Init(_focus.transform as RectTransform, color);
+
+        _offsetLine.material.color = color;
+        _offsetLine.startWidth = 0.01f;
+        _offsetLine.endWidth = 0.01f;
     }
-    
+
+    private void Update()
+    {
+        Vector2 line = _offsetMarker.position - _rect.position;
+        var p0 = -line.normalized * (_offsetMarker.rect.width * 0.5f);
+        Vector2 p1 = _offsetMarker.anchoredPosition - line.normalized * (_rect.rect.width * 0.5f);
+        _offsetLine.SetPosition(0, p0);
+        _offsetLine.SetPosition(1, -p1);
+    }
+
     private void OnDestroy()
     {
         _focusViewChannel.OnChange -= UpdateOffset;
