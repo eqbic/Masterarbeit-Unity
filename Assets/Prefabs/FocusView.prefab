@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 6003373470983809599}
   - component: {fileID: 6963645359349087494}
   - component: {fileID: 5865914550469407427}
+  - component: {fileID: 2191610401702284495}
   m_Layer: 5
   m_Name: FocusView
   m_TagString: Untagged
@@ -94,7 +95,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   type: 1
-  screenTransformThreshold: 0.5
+  screenTransformThreshold: 0.2
   minScreenPointsDistance: 0.5
 --- !u!114 &7963340361456085188
 MonoBehaviour:
@@ -205,6 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _zoomGesture: {fileID: 6697369712331897270}
   _panGesture: {fileID: 1195022231401049622}
+  _rotateGesture: {fileID: 2191610401702284495}
   _zoomSpeed: 2
 --- !u!114 &6697369712331897270
 MonoBehaviour:
@@ -235,6 +237,7 @@ MonoBehaviour:
   requireGestureToFail: {fileID: 0}
   friendlyGestures:
   - {fileID: 1195022231401049622}
+  - {fileID: 2191610401702284495}
   OnTransformStart:
     m_PersistentCalls:
       m_Calls: []
@@ -276,6 +279,7 @@ MonoBehaviour:
   requireGestureToFail: {fileID: 0}
   friendlyGestures:
   - {fileID: 6697369712331897270}
+  - {fileID: 2191610401702284495}
   OnTransformStart:
     m_PersistentCalls:
       m_Calls: []
@@ -286,7 +290,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   type: 1
-  screenTransformThreshold: 0.1
+  screenTransformThreshold: 0.2
   minScreenPointsDistance: 0.5
 --- !u!114 &273331510141699401
 MonoBehaviour:
@@ -398,3 +402,45 @@ MonoBehaviour:
   zoomInOnDoubleClick: 1
   zoomMode: 0
   zoomSensitivity: 1
+--- !u!114 &2191610401702284495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2977748129953188933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ae431eff8434b0897d3f7f1cff4311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateChange:
+    m_PersistentCalls:
+      m_Calls: []
+  basicEditor: 0
+  generalProps: 0
+  limitsProps: 0
+  advancedProps: 0
+  minPointers: 2
+  maxPointers: 2
+  useSendMessage: 0
+  sendStateChangeMessages: 0
+  sendMessageTarget: {fileID: 0}
+  useUnityEvents: 0
+  sendStateChangeEvents: 0
+  requireGestureToFail: {fileID: 0}
+  friendlyGestures:
+  - {fileID: 1195022231401049622}
+  - {fileID: 6697369712331897270}
+  OnTransformStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTransform:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTransformComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  type: 2
+  screenTransformThreshold: 0.1
+  minScreenPointsDistance: 0.5
