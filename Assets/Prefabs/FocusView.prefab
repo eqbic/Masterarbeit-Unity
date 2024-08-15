@@ -205,6 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _zoomGesture: {fileID: 6697369712331897270}
   _panGesture: {fileID: 1195022231401049622}
+  _zoomSpeed: 2
 --- !u!114 &6697369712331897270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +245,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   type: 4
-  screenTransformThreshold: 0.2
+  screenTransformThreshold: 0.5
   minScreenPointsDistance: 0.5
 --- !u!114 &1195022231401049622
 MonoBehaviour:
