@@ -1,57 +1,62 @@
-﻿using System;
-using Channels;
-using TouchScript.Gestures;
+﻿using Channels;
+using UI;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
-using UnityEngine.UI;
 
 public class FocusView : MonoBehaviour
 {
-    [SerializeField] private OnlineMaps _focusViewMap;
     [SerializeField] private FocusMapControl _focusMapControl;
-    [SerializeField] private TapGesture _resetTap;
-    [SerializeField] private RawImage _image;
+    [SerializeField] private FocusMapUI _focusMapUI;
+    [SerializeField] private CircleUI _ui;
     
     private GeoCoordChannel _viewFinderChannel;
     private GeoCoordChannel _focusViewChannel;
 
-    private GeoCoord _coords;
     private RectTransform _rect;
-    
-   public void Init(GeoCoordChannel viewFinderChannel, GeoCoordChannel focusViewChannel, Vector2 position, Material material)
-   {
-        var texture = new Texture2D(512, 512);
-        _focusViewMap.texture = texture;
-        _image.texture = texture;
-        var mat = new Material(material);
-        mat.SetInt("_HasTexture", 1);
-        mat.SetFloat("_Thickness", 0.95f);
-        _image.material = mat;
+
+    private void OnEnable()
+    {
+        _focusMapControl.OnZoom += UpdateZoom;
+        _focusMapControl.OnPan += UpdatePosition;
+        _focusMapControl.OnRotate += UpdateRotation;
+        _focusMapControl.OnResetView += ResetView;
+    }
+
+    private void OnDisable()
+    {
+        _focusMapControl.OnZoom -= UpdateZoom;
+        _focusMapControl.OnPan -= UpdatePosition;
+        _focusMapControl.OnRotate -= UpdateRotation;
+        _focusMapControl.OnResetView -= ResetView;
+    }
+
+    private void ResetView()
+    {
+        var coords = _viewFinderChannel.Data;
+        _focusMapUI.ResetView(coords);
+        _focusViewChannel.RaiseEvent(coords);
+    }
+
+    public void Init(GeoCoordChannel viewFinderChannel, GeoCoordChannel focusViewChannel, Vector2 position, Color color)
+    {
+        _viewFinderChannel = viewFinderChannel;
+        _focusViewChannel = focusViewChannel;
+       
+        _ui.Init(color, true);
+        _focusMapUI.SetupTexture(512);
         
         _rect = GetComponent<RectTransform>();
         _rect.anchoredPosition = position;
-        _viewFinderChannel = viewFinderChannel;
-        _focusViewChannel = focusViewChannel;
-        _coords = viewFinderChannel.Data;
-        _focusViewMap.SetPositionAndZoom(_coords.Longitude, _coords.Latitude, 17f);
-        _focusViewChannel.RaiseEvent(_coords);
-        _viewFinderChannel.OnChange += UpdateCoordinate;
         
-        _focusMapControl.OnZoom += UpdateZoom;
-        _focusMapControl.OnPan += UpdatePosition;
-        _resetTap.Tapped += ResetOffset;
-        _focusMapControl.OnRotate += UpdateRotation;
-   }
+        var coords = viewFinderChannel.Data;
+        _focusMapUI.Init(coords);
+        _focusViewChannel.RaiseEvent(coords);
+        
+        _viewFinderChannel.OnChange += UpdateCoordinate;
+    }
 
     private void OnDestroy()
     {
         _viewFinderChannel.OnChange -= UpdateCoordinate;
-        
-        _focusMapControl.OnZoom -= UpdateZoom;
-        _focusMapControl.OnPan -= UpdatePosition;
-        _resetTap.Tapped -= ResetOffset;
-        _focusMapControl.OnRotate -= UpdateRotation;
-
     }
 
     private void UpdateRotation(float deltaDegree)
@@ -59,36 +64,20 @@ public class FocusView : MonoBehaviour
         _rect.Rotate(Vector3.forward, deltaDegree);
     }
 
-    private void ResetOffset(object sender, EventArgs e)
-    {
-        _coords = _viewFinderChannel.Data;
-        _focusViewMap.SetPositionAndZoom(_coords.Longitude, _coords.Latitude, 17f);
-        _focusViewChannel.RaiseEvent(_coords);
-    }
-
     private void UpdatePosition(Vector2 delta)
     {
-        double lng, lat;
-        _focusViewMap.GetPosition(out lng, out lat);
-        var screenPosition = _focusViewMap.control.GetScreenPosition(lng, lat);
-        screenPosition -= delta;
-        _focusViewMap.control.GetCoords(screenPosition, out lng, out lat);
-        _coords.Latitude = lat;
-        _coords.Longitude = lng;
-        
-        _focusViewMap.SetPosition(lng, lat);
-        _focusViewChannel.RaiseEvent(_coords);
+        var coords = _focusMapUI.Move(delta);
+        _focusViewChannel.RaiseEvent(coords);
     }
 
     private void UpdateZoom(float zoom)
     {
-        _focusViewMap.floatZoom = zoom;
+        _focusMapUI.UpdateZoom(zoom);
     }
 
     private void UpdateCoordinate(GeoCoord geoCoord)
     {
-        _coords = geoCoord;
-        _focusViewMap.SetPosition(geoCoord.Longitude, geoCoord.Latitude);
-        _focusViewChannel.RaiseEvent(_coords);
+        _focusMapUI.UpdateCoords(geoCoord);
+        _focusViewChannel.RaiseEvent(geoCoord);
     }
 }

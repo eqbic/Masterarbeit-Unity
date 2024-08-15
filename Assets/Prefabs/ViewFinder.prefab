@@ -191,7 +191,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6538803599847649538}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758052c799f74ed394553aa3b406f67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _focusViewPrefab: {fileID: 3546593321217552593, guid: e257e42b86dfe404aaed9fd2ce173108, type: 3}
+  _focusViewPrefab: {fileID: 5657974580616893575, guid: e257e42b86dfe404aaed9fd2ce173108, type: 3}
 --- !u!114 &1214503495590943833
 MonoBehaviour:
   m_ObjectHideFlags: 0
