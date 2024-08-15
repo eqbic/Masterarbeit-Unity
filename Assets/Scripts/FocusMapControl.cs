@@ -9,6 +9,8 @@ public class FocusMapControl : MonoBehaviour
     [SerializeField] private ScreenTransformGesture _panGesture;
     // [SerializeField] private ScreenTransformGesture _rotateGesture;
 
+    [SerializeField] private float _zoomSpeed = 2.0f;
+    
     private float _zoom = 17f;
 
     public event Action<float> OnZoom;
@@ -35,7 +37,7 @@ public class FocusMapControl : MonoBehaviour
 
     private void Zoom(object sender, EventArgs e)
     {
-        _zoom *= _zoomGesture.DeltaScale;
+        _zoom += (_zoomGesture.DeltaScale - 1f) * _zoomSpeed;
         OnZoom?.Invoke(_zoom);
     }
 }
