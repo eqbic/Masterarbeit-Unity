@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 namespace UI
 {
-    [RequireComponent(typeof(Image))]
+    [RequireComponent(typeof(MaskableGraphic))]
     public class CircleUI : MonoBehaviour
     {
         [SerializeField] private Shader _shader;
@@ -13,7 +13,7 @@ namespace UI
         
         private static readonly int OutlineColor = Shader.PropertyToID("_Outline_Color");
         private static readonly int Thickness = Shader.PropertyToID("_Thickness");
-        private Image _image;
+        private MaskableGraphic _graphic;
         private RectTransform _rectTransform;
         public Material Material { get; private set; }
         public Color Color { get; private set; }
@@ -33,27 +33,27 @@ namespace UI
         private void Awake()
         {
             RectTransform = GetComponent<RectTransform>();
-            _image = GetComponent<Image>();
+            _graphic = GetComponent<Image>();
         }
 
         public void Init()
         {
             Color = Random.ColorHSV(0f, 1f, 0.5f, 0.7f, 1f, 1f);
-            SetupMaterial(_image, Color);
+            SetupMaterial(_graphic, Color);
         }
 
         public void Init(Color color)
         {
             Color = color;
-            SetupMaterial(_image, Color);
+            SetupMaterial(_graphic, Color);
         }
 
-        private void SetupMaterial(Image image, Color color)
+        private void SetupMaterial(MaskableGraphic graphic, Color color)
         {
             Material = new Material(_shader);
             Material.SetColor(OutlineColor, color);
             Material.SetFloat(Thickness, _outlineThickness);
-            image.material = Material;
+            graphic.material = Material;
         }
     }
 }
