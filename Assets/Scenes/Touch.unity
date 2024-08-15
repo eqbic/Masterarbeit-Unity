@@ -133,8 +133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 622676885}
   - component: {fileID: 622676887}
-  - component: {fileID: 622676886}
   - component: {fileID: 622676888}
+  - component: {fileID: 622676889}
   m_Layer: 0
   m_Name: TouchManager
   m_TagString: Untagged
@@ -157,23 +157,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &622676886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 622676884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdfb6104ad1047969f073ecedd435bc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  basicEditor: 1
-  _tuioVersion: 1
-  _connectionType: 1
-  _ipAddress: 10.0.0.20
-  _udpPort: 3333
 --- !u!114 &622676887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,6 +225,23 @@ MonoBehaviour:
   windows7Mouse: 1
   universalWindowsMouse: 1
   emulateSecondMousePointer: 1
+--- !u!114 &622676889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622676884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdfb6104ad1047969f073ecedd435bc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicEditor: 1
+  _tuioVersion: 1
+  _connectionType: 1
+  _ipAddress: 10.0.0.20
+  _udpPort: 3333
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
