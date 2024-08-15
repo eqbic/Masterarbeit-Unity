@@ -13,7 +13,7 @@ namespace UI
         
         private static readonly int OutlineColor = Shader.PropertyToID("_Outline_Color");
         private static readonly int Thickness = Shader.PropertyToID("_Thickness");
-        private static readonly int HasTexture = Shader.PropertyToID("_Has_Texture");
+        private static readonly int HasTexture = Shader.PropertyToID("_HasTexture");
         
         private MaskableGraphic _graphic;
         private RectTransform _rectTransform;
@@ -35,7 +35,7 @@ namespace UI
         private void Awake()
         {
             RectTransform = GetComponent<RectTransform>();
-            _graphic = GetComponent<Image>();
+            _graphic = GetComponent<MaskableGraphic>();
         }
 
         public void Init(bool hasTexture = false)
