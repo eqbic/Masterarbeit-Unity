@@ -7,7 +7,7 @@ public class FocusMapControl : MonoBehaviour
 {
     [SerializeField] private ScreenTransformGesture _zoomGesture;
     [SerializeField] private ScreenTransformGesture _panGesture;
-    // [SerializeField] private ScreenTransformGesture _rotateGesture;
+    [SerializeField] private ScreenTransformGesture _rotateGesture;
 
     [SerializeField] private float _zoomSpeed = 2.0f;
     
@@ -21,12 +21,19 @@ public class FocusMapControl : MonoBehaviour
     {
         _zoomGesture.Transformed += Zoom;
         _panGesture.Transformed += Pan;
+        _rotateGesture.Transformed += Rotate;
     }
 
     private void OnDisable()
     {
         _zoomGesture.Transformed -= Zoom;
         _panGesture.Transformed -= Pan;
+        _rotateGesture.Transformed -= Rotate;
+    }
+
+    private void Rotate(object sender, EventArgs e)
+    {
+        OnRotate?.Invoke(_rotateGesture.DeltaRotation);
     }
 
     private void Pan(object sender, EventArgs e)
