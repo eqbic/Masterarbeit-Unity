@@ -1,30 +1,26 @@
-﻿using System;
-using TouchScript.Gestures;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ViewFinderSpawner : MonoBehaviour
 {
     [SerializeField] private OnlineMaps _contextViewMap;
-    [SerializeField] private TapGesture _tapGesture;
     [SerializeField] private ViewFinder _viewFinderPrefab;
     [SerializeField] private RectTransform _viewParent;
 
-    private void OnEnable()
-    {
-        _tapGesture.Tapped += SpawnViewFinder;
-    }
+    private readonly Dictionary<uint, ViewFinder> _viewFinders = new();
 
-    private void OnDisable()
+    public void SpawnViewFinder(uint id, Vector2 screenPosition)
     {
-        _tapGesture.Tapped -= SpawnViewFinder;
-    }
-
-    private void SpawnViewFinder(object sender, EventArgs e)
-    {
-        // _contextViewMap.control.GetCoords(_tapGesture.ScreenPosition, out var lng, out var lat);
-        // print($"Spawned at: {_tapGesture.ScreenPosition} -> {lng}, {lat}");
-
         var finder = Instantiate(_viewFinderPrefab, _viewParent);
-        finder.Init(_tapGesture.ScreenPosition, _contextViewMap);
+        finder.Init(id, screenPosition, _contextViewMap);
+        _viewFinders.Add(id, finder);
+    }
+
+    public void DestroyViewFinder(uint id)
+    {
+        if (_viewFinders.Remove(id, out var finder))
+        {
+            Destroy(finder.gameObject);
+        }
     }
 }
