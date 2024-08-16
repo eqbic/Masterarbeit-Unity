@@ -82,6 +82,11 @@ public class FocusView : MonoBehaviour
         _tokenTransform.Initialize(tuioObject, RenderMode.ScreenSpaceCamera);
     }
 
+    public void InitJoystick(Tuio20Object joystick)
+    {
+        _tuiControl.AddJoystick(joystick);
+    }
+
     private void OnDestroy()
     {
         _viewFinderChannel.OnChange -= UpdateCoordinate;

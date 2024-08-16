@@ -54,6 +54,14 @@ public class LensSpawner : MonoBehaviour
         return focus;
     }
 
+    public void AddJoystick(uint focusId, Tuio20Object joystick)
+    {
+        if (_focusViews.TryGetValue(focusId, out var focusView))
+        {
+            focusView.InitJoystick(joystick);
+        }
+    }
+
     public void DestroyFocusView(uint id)
     {
         if (_focusViews.Remove(id, out var focus))

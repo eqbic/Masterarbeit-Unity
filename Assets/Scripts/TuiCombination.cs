@@ -7,8 +7,10 @@ public class TuiCombination : ScriptableObject
 {
     [field: SerializeField] public uint MagnifyId { get; set; }
     [field: SerializeField] public uint ViewFinderId { get; set; }
+    [field: SerializeField] public uint JoystickId { get; set; }
 
     
     public Tuio20Object Magnify { get; set; } = null;
     public Tuio20Object ViewFinder { get; set; } = null;
+    public Tuio20Object Joystick { get; set; } = null;
 }

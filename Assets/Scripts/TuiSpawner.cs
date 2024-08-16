@@ -29,7 +29,7 @@ public class TuiSpawner : MonoBehaviour
         if (!tuioObject.ContainsTuioToken()) return;
         var position = TuioUtils.ToScreenPoint(tuioObject.Token.Position);
         var id = tuioObject.Token.ComponentId;
-        var combo =  _tuiCombinations.First(combo => combo.ViewFinderId == id || combo.MagnifyId == id);
+        var combo =  _tuiCombinations.First(combo => combo.ViewFinderId == id || combo.MagnifyId == id || combo.JoystickId == id);
         if (combo == null)
         {
             print("no match found");
@@ -53,6 +53,12 @@ public class TuiSpawner : MonoBehaviour
             var finder = _lensSpawner.SpawnViewFinder(tuioObject.Token.ComponentId, position, InputType.Tui, tuioObject);
             _lensSpawner.SpawnFocusView(magnifyObject.Token.ComponentId, position, finder, InputType.Tui, magnifyObject);
         }
+
+        if (id == combo.JoystickId)
+        {
+            combo.Joystick = tuioObject;
+            _lensSpawner.AddJoystick(combo.MagnifyId, tuioObject);
+        }
     }
 
     private void DestroyLens(object sender, Tuio20Object tuioObject)
@@ -71,6 +77,11 @@ public class TuiSpawner : MonoBehaviour
         if (id == combo.ViewFinderId)
         {
             combo.ViewFinder = null;
+        }
+
+        if (id == combo.JoystickId)
+        {
+            combo.Joystick = null;
         }
         
         _lensSpawner.DestroyFocusView(combo.MagnifyId);
