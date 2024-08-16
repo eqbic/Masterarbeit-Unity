@@ -1,12 +1,21 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TouchScript.Gestures.TransformGestures;
 using UnityEngine;
 
 public class Draggable : MonoBehaviour
 {
     [SerializeField] private ScreenTransformGesture _gesture;
+
+    public ScreenTransformGesture Gesture
+    {
+        get => _gesture;
+        set
+        {
+            _gesture = value;
+            _gesture.Transformed -= Move;
+            _gesture.Transformed += Move;
+        }
+    }
     
     private RectTransform _rect;
 

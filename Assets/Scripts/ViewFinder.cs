@@ -1,22 +1,19 @@
-﻿using System;
-using Channels;
-using TouchScript.Gestures;
+﻿using Channels;
+using TuioNet.Tuio20;
+using TuioUnity.Tuio20;
 using UI;
 using UnityEngine;
 
 public class ViewFinder : MonoBehaviour
 {
     [SerializeField] private OffsetMarker _offsetMarker;
-    [SerializeField] private FocusViewSpawner _focusViewSpawner;
-    
-    [Header("Interaction")]
-    [SerializeField] private Draggable _draggable;
-    [SerializeField] private LongPressGesture _longPress;
+
+    [SerializeField] private Draggable _touchDrag;
+    [SerializeField] private Tuio20TokenTransform _tokenTransform;
     
     [Header("UI")]
     [SerializeField] private CircleUI _viewFinderUI;
     [SerializeField] private CircleUI _offsetMarkerUI;
-    [SerializeField] private ConnectionUI _connectionUI;
     
     public GeoCoordChannel ViewFinderChannel { get; private set; }
     public GeoCoordChannel FocusViewChannel { get; private set; }
@@ -24,7 +21,7 @@ public class ViewFinder : MonoBehaviour
     public Color Color => _viewFinderUI.Color;
     
     private OnlineMaps _contextViewMap;
-    private FocusView _focus;
+    public RectTransform OffsetMarker => _offsetMarker.transform as RectTransform;
     
     public uint Id { get; private set; }
 
@@ -37,41 +34,44 @@ public class ViewFinder : MonoBehaviour
         
         ViewFinderChannel = new GeoCoordChannel();
         FocusViewChannel = new GeoCoordChannel();
-        UpdateViewFinderCoords(RectTransform.anchoredPosition);
         
         _viewFinderUI.Init();
         _offsetMarkerUI.Init(_viewFinderUI.Color);
         _offsetMarker.Init(FocusViewChannel, contextViewMap);
         
-        _focus = _focusViewSpawner.Spawn(this);
-        _connectionUI.Init(_focus.transform as RectTransform, _viewFinderUI.Color);
+    }
 
-        _draggable.OnDrag += UpdateViewFinderCoords;
-        _longPress.LongPressed += DestroyViews;
+    public void InitTouch()
+    {
+        Destroy(_tokenTransform);
+    }
+
+    public void InitTui(Tuio20Object tuioObject)
+    {
+        Destroy(_touchDrag);
+        _tokenTransform.Initialize(tuioObject, RenderMode.ScreenSpaceCamera);
     }
     
-    private void DestroyViews(object sender, EventArgs e)
-    {
-        Destroy(_focus.gameObject);
-        Destroy(gameObject);
-    }
-
     private GeoCoord ScreenToCoords(Vector2 screenPosition)
     {
         _contextViewMap.control.GetCoords(screenPosition, out var lng, out var lat);
         return new GeoCoord(lng, lat);
     }
-
-    private void UpdateViewFinderCoords(Vector2 screenPosition)
+    
+    private void Update()
     {
-        var coords = ScreenToCoords(screenPosition);
-        ViewFinderChannel.RaiseEvent(coords);
+        if (RectTransform.hasChanged)
+        {
+            var coords = ScreenToCoords(RectTransform.anchoredPosition);
+            ViewFinderChannel.RaiseEvent(coords);
+            RectTransform.hasChanged = false;
+        }
     }
 
-    private void OnDestroy()
-    {
-        _draggable.OnDrag -= UpdateViewFinderCoords;
-        _longPress.LongPressed -= DestroyViews;
-    }
+    // private void OnDestroy()
+    // {
+    //     if(_focus.gameObject)
+    //         Destroy(_focus.gameObject);
+    // }
     
 }

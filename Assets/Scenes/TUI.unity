@@ -681,7 +681,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tuioSession: {fileID: 1579846300}
-  _viewFinderSpawner: {fileID: 934256437}
+  _lensSpawner: {fileID: 934256437}
+  _tuiCombinations:
+  - {fileID: 11400000, guid: 07eb66d838f99984396f55521d559e32, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

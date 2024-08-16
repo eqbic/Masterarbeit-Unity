@@ -123,8 +123,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 964248115948913420}
+  m_Children: []
   m_Father: {fileID: 6683036246106708042}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -182,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fca5455db174876b1b2cc91ad5b6240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lineRenderer: {fileID: 3700845674452441759}
+  _lineRenderer: {fileID: 0}
 --- !u!120 &6157230596564521667
 LineRenderer:
   serializedVersion: 2
@@ -313,88 +312,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d090c42a22a14e8580dea1f4beeaf71a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &6673653613329236981
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 964248115948913420}
-  - component: {fileID: 3069427293168752974}
-  - component: {fileID: 3700845674452441759}
-  m_Layer: 5
-  m_Name: Connection
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &964248115948913420
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6673653613329236981}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3708044103293772791}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 1}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &3069427293168752974
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6673653613329236981}
-  m_CullTransparentMesh: 1
---- !u!114 &3700845674452441759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6673653613329236981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34861a5dcec3dbf438f8288be97dd133, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_improveResolution: 0
-  m_Resolution: 1
-  m_useNativeSize: 0
-  m_points:
-  - {x: -10, y: 0}
-  - {x: -4.64, y: 33.63}
-  - {x: 10, y: 0}
-  - {x: 10.61, y: 33.63}
-  lineThickness: 3
-  relativeSize: 1
-  lineList: 1
-  lineCaps: 0
-  bezierSegmentsPerCurve: 2
-  LineJoins: 0
-  BezierMode: 0
-  drivenExternally: 0
 --- !u!1 &8202052581729085367
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,10 +324,11 @@ GameObject:
   - component: {fileID: 5991166004183352432}
   - component: {fileID: 20938313237053337}
   - component: {fileID: 6424853033467641936}
-  - component: {fileID: 1214503495590943833}
-  - component: {fileID: 462606381051808510}
-  - component: {fileID: 5113284028079781438}
   - component: {fileID: 509903854671869742}
+  - component: {fileID: 5369908512434294020}
+  - component: {fileID: 2040635024924808533}
+  - component: {fileID: 7338092162268145318}
+  - component: {fileID: 3456176655391838415}
   m_Layer: 5
   m_Name: ViewFinder
   m_TagString: Untagged
@@ -460,12 +378,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _offsetMarker: {fileID: 189963246552077270}
-  _focusViewSpawner: {fileID: 6424853033467641936}
-  _draggable: {fileID: 1214503495590943833}
-  _longPress: {fileID: 5113284028079781438}
+  _touchDrag: {fileID: 2040635024924808533}
+  _tokenTransform: {fileID: 5369908512434294020}
   _viewFinderUI: {fileID: 6143472697972131427}
   _offsetMarkerUI: {fileID: 2344493524579510985}
-  _connectionUI: {fileID: 2140917562706904764}
 --- !u!114 &6424853033467641936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,8 +394,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758052c799f74ed394553aa3b406f67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _focusViewPrefab: {fileID: 5657974580616893575, guid: e257e42b86dfe404aaed9fd2ce173108, type: 3}
---- !u!114 &1214503495590943833
+--- !u!114 &509903854671869742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8202052581729085367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5369908512434294020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8202052581729085367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cecd6e480ac593d4daeb5777cd958de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2040635024924808533
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -491,8 +448,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d57b31ea035b74e49a0aca1a3fe70555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gesture: {fileID: 0}
---- !u!114 &462606381051808510
+  _gesture: {fileID: 7338092162268145318}
+--- !u!114 &7338092162268145318
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -532,7 +489,7 @@ MonoBehaviour:
   type: 1
   screenTransformThreshold: 0.1
   minScreenPointsDistance: 0.5
---- !u!114 &5113284028079781438
+--- !u!114 &3456176655391838415
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -541,57 +498,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8202052581729085367}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65c8d97aff62a473e888feae3bec54cd, type: 3}
+  m_Script: {fileID: 11500000, guid: fc7f176a388949b7842dcff220c73ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnStateChange:
-    m_PersistentCalls:
-      m_Calls: []
-  basicEditor: 0
-  generalProps: 0
-  limitsProps: 0
-  advancedProps: 0
-  minPointers: 1
-  maxPointers: 1
-  useSendMessage: 0
-  sendStateChangeMessages: 0
-  sendMessageTarget: {fileID: 0}
-  useUnityEvents: 0
-  sendStateChangeEvents: 0
-  requireGestureToFail: {fileID: 0}
-  friendlyGestures: []
-  OnLongPress:
-    m_PersistentCalls:
-      m_Calls: []
-  timeToPress: 2
-  distanceLimit: 0.2
---- !u!114 &509903854671869742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8202052581729085367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1

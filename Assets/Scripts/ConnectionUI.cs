@@ -6,7 +6,7 @@ public class ConnectionUI : MonoBehaviour
 {
     [SerializeField] private UILineRendererList _lineRenderer;
 
-    private RectTransform _focus;
+    private RectTransform _offsetMarker;
     private RectTransform _rect;
 
     private float _offsetSize;
@@ -21,10 +21,10 @@ public class ConnectionUI : MonoBehaviour
         _offsetSize = (_corners[1] - _corners[0]).magnitude;
     }
 
-    public void Init(RectTransform focusView, Color color)
+    public void Init(RectTransform offsetMarker, Color color)
     {
-        _focus = focusView;
-        _focus.GetWorldCorners(_corners);
+        _offsetMarker = offsetMarker;
+        _offsetMarker.GetWorldCorners(_corners);
         _focusSize = (_corners[1] - _corners[0]).magnitude;
         color.a = 0.5f;
         _lineRenderer.color = color;
@@ -33,7 +33,7 @@ public class ConnectionUI : MonoBehaviour
 
     private void UpdatePoints()
     {
-        Vector2 vFocus2 = _focus.position - _rect.position;
+        Vector2 vFocus2 = _offsetMarker.position - _rect.position;
         Vector3 vFocus3 = vFocus2;
         Vector2 vNormal2 = Vector2.Perpendicular(vFocus2).normalized;
         Vector3 vNormal3 = vNormal2;
@@ -42,15 +42,15 @@ public class ConnectionUI : MonoBehaviour
         
         var dPointOffsetCircle0 = _rect.position + vNormal3 * (_offsetSize * 0.5f);
         var dPointOffsetCircle1 = _rect.position - vNormal3 * (_offsetSize * 0.5f);
-        var dPointFocusCircle0 = _focus.position + vNormal3 * (_focusSize * 0.5f);
-        var dPointFocusCircle1 = _focus.position - vNormal3 * (_focusSize * 0.5f);
+        var dPointFocusCircle0 = _offsetMarker.position + vNormal3 * (_focusSize * 0.5f);
+        var dPointFocusCircle1 = _offsetMarker.position - vNormal3 * (_focusSize * 0.5f);
 
         Vector2 v = transform.InverseTransformVector(vFocus2);
         
         var pointOffsetCircle0 = vNormal2 * (0.5f * (_rect.rect.width - _lineRenderer.LineThickness));
         var pointOffsetCircle1 = -vNormal2 * (0.5f * (_rect.rect.width - _lineRenderer.LineThickness));
-        var pointFocusCircle0 = v + vNormal2 * (0.5f * (_focus.rect.width - _lineRenderer.LineThickness));
-        var pointFocusCircle1 = v - vNormal2 * (0.5f * (_focus.rect.width - _lineRenderer.LineThickness));
+        var pointFocusCircle0 = v + vNormal2 * (0.5f * (_offsetMarker.rect.width - _lineRenderer.LineThickness));
+        var pointFocusCircle1 = v - vNormal2 * (0.5f * (_offsetMarker.rect.width - _lineRenderer.LineThickness));
 
         _lineRenderer.Points[0] = pointOffsetCircle0;
         _lineRenderer.Points[1] = pointFocusCircle0;
@@ -65,6 +65,7 @@ public class ConnectionUI : MonoBehaviour
 
     private void Update()
     {
+        if (!_offsetMarker) return;
         UpdatePoints();
     }
 }

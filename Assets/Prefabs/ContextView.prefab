@@ -200,4 +200,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _contextViewMap: {fileID: 3241745088069015106}
   _viewFinderPrefab: {fileID: 20938313237053337, guid: 91a69b9a44e8cc142b79c852c25cdecb, type: 3}
+  _focusViewPrefab: {fileID: 5657974580616893575, guid: e257e42b86dfe404aaed9fd2ce173108, type: 3}
   _viewParent: {fileID: 0}

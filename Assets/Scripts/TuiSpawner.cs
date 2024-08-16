@@ -1,37 +1,79 @@
-﻿using TuioNet.Tuio20;
+﻿using System.Collections.Generic;
+using System.Linq;
+using TuioNet.Tuio20;
 using TuioUnity.Common;
 using UnityEngine;
 
 public class TuiSpawner : MonoBehaviour
 {
     [SerializeField] private TuioSessionBehaviour _tuioSession;
-    [SerializeField] private ViewFinderSpawner _viewFinderSpawner;
+    [SerializeField] private LensSpawner _lensSpawner;
+    [SerializeField] private List<TuiCombination> _tuiCombinations;
 
     private Tuio20Dispatcher Dispatcher => (Tuio20Dispatcher)_tuioSession.TuioDispatcher;
 
     private void OnEnable()
     {
-        Dispatcher.OnObjectAdd += SpawnViewFinder;
-        Dispatcher.OnObjectRemove += DestroyViewFinder;
+        Dispatcher.OnObjectAdd += SpawnLens;
+        Dispatcher.OnObjectRemove += DestroyLens;
     }
 
     private void OnDisable()
     {
-        Dispatcher.OnObjectAdd -= SpawnViewFinder;
-        Dispatcher.OnObjectRemove -= DestroyViewFinder;
+        Dispatcher.OnObjectAdd -= SpawnLens;
+        Dispatcher.OnObjectRemove -= DestroyLens;
     }
 
-    private void SpawnViewFinder(object sender, Tuio20Object tuioObject)
+    private void SpawnLens(object sender, Tuio20Object tuioObject)
     {
         if (!tuioObject.ContainsTuioToken()) return;
         var position = TuioUtils.ToScreenPoint(tuioObject.Token.Position);
-        _viewFinderSpawner.SpawnViewFinder(tuioObject.Token.SessionId,position);
+        var id = tuioObject.Token.ComponentId;
+        var combo =  _tuiCombinations.First(combo => combo.ViewFinderId == id || combo.MagnifyId == id);
+        if (combo == null)
+        {
+            print("no match found");
+            return;
+        }
+
+        if (id == combo.MagnifyId)
+        {
+            combo.Magnify = tuioObject;
+            if (combo.ViewFinder == null) return;
+            var viewfinderObject = combo.ViewFinder;
+            var finder = _lensSpawner.SpawnViewFinder(viewfinderObject.Token.ComponentId, position, InputType.Tui, viewfinderObject);
+            _lensSpawner.SpawnFocusView(tuioObject.Token.ComponentId,position, finder, InputType.Tui, tuioObject);
+        }
+
+        if (id == combo.ViewFinderId)
+        {
+            combo.ViewFinder = tuioObject;
+            if (combo.Magnify == null) return;
+            var magnifyObject = combo.Magnify;
+            var finder = _lensSpawner.SpawnViewFinder(tuioObject.Token.ComponentId, position, InputType.Tui, tuioObject);
+            _lensSpawner.SpawnFocusView(magnifyObject.Token.ComponentId, position, finder, InputType.Tui, magnifyObject);
+        }
     }
 
-    private void DestroyViewFinder(object sender, Tuio20Object tuioObject)
+    private void DestroyLens(object sender, Tuio20Object tuioObject)
     {
         if (!tuioObject.ContainsTuioToken()) return;
-        var id = tuioObject.Token.SessionId;
-        _viewFinderSpawner.DestroyViewFinder(id);
+        var id = tuioObject.Token.ComponentId;
+        var combo =  _tuiCombinations.First(combo => combo.ViewFinderId == id || combo.MagnifyId == id);
+        if(combo == null)
+            return;
+
+        if (id == combo.MagnifyId)
+        {
+            combo.Magnify = null;
+        }
+
+        if (id == combo.ViewFinderId)
+        {
+            combo.ViewFinder = null;
+        }
+        
+        _lensSpawner.DestroyFocusView(combo.MagnifyId);
+        _lensSpawner.DestroyViewFinder(combo.ViewFinderId);
     }
 }
