@@ -1,13 +1,15 @@
 ﻿using System;
+using TouchScript.Gestures;
 using TouchScript.Gestures.TransformGestures;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class FocusMapControl : MonoBehaviour
 {
     [SerializeField] private ScreenTransformGesture _zoomGesture;
     [SerializeField] private ScreenTransformGesture _panGesture;
     [SerializeField] private ScreenTransformGesture _rotateGesture;
+    [SerializeField] private TapGesture _resetTap;
+
 
     [SerializeField] private float _zoomSpeed = 2.0f;
     
@@ -15,13 +17,16 @@ public class FocusMapControl : MonoBehaviour
 
     public event Action<float> OnZoom;
     public event Action<Vector2> OnPan;
-    public event Action<float> OnRotate; 
+    public event Action<float> OnRotate;
+    public event Action OnResetView;
 
     private void OnEnable()
     {
         _zoomGesture.Transformed += Zoom;
         _panGesture.Transformed += Pan;
         _rotateGesture.Transformed += Rotate;
+        _resetTap.Tapped += ResetOffset;
+
     }
 
     private void OnDisable()
@@ -29,6 +34,12 @@ public class FocusMapControl : MonoBehaviour
         _zoomGesture.Transformed -= Zoom;
         _panGesture.Transformed -= Pan;
         _rotateGesture.Transformed -= Rotate;
+        _resetTap.Tapped -= ResetOffset;
+    }
+    
+    private void ResetOffset(object sender, EventArgs e)
+    {
+        OnResetView?.Invoke();
     }
 
     private void Rotate(object sender, EventArgs e)
