@@ -25,9 +25,12 @@ public class ViewFinder : MonoBehaviour
     
     private OnlineMaps _contextViewMap;
     private FocusView _focus;
+    
+    public uint Id { get; private set; }
 
-    public void Init(Vector2 position, OnlineMaps contextViewMap)
+    public void Init(uint id, Vector2 position, OnlineMaps contextViewMap)
     {
+        Id = id;
         RectTransform = GetComponent<RectTransform>();
         RectTransform.anchoredPosition = position;
         _contextViewMap = contextViewMap;
