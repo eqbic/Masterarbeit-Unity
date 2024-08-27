@@ -24,20 +24,23 @@ public class FocusMapControlTui : FocusMapControlBase
         _joystick = joystick.Token;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        UpdateZoom();
+        // UpdateZoom();
         UpdatePan();
     }
 
     private void UpdatePan()
     {
-        if (_joystick == null) return;
-        var v = (_joystick.Position - _magnify.Position).ToUnity();
-        if (v.magnitude > 0.2f)
-        {
-            Pan(v * 5f);
-        }
+        // if (_joystick == null) return;
+        // var v = (_joystick.Position - _magnify.Position).ToUnity();
+        // v.y *= -1f;
+        // var speed = Mathf.Clamp(v.magnitude - 0.15f, 0f, 1f);
+        // if (speed > 0f)
+        // {
+        //     Pan(v.normalized * (speed * Time.deltaTime));
+        // }
+        Pan(Vector2.right * (0.2f * Time.deltaTime));
     }
 
     private void UpdateZoom()

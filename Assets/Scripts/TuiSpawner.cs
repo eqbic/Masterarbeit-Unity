@@ -29,7 +29,7 @@ public class TuiSpawner : MonoBehaviour
         if (!tuioObject.ContainsTuioToken()) return;
         var position = TuioUtils.ToScreenPoint(tuioObject.Token.Position);
         var id = tuioObject.Token.ComponentId;
-        var combo =  _tuiCombinations.First(combo => combo.ViewFinderId == id || combo.MagnifyId == id || combo.JoystickId == id);
+        var combo =  _tuiCombinations.FirstOrDefault(combo => combo.ViewFinderId == id || combo.MagnifyId == id || combo.JoystickId == id);
         if (combo == null)
         {
             print("no match found");
@@ -65,7 +65,7 @@ public class TuiSpawner : MonoBehaviour
     {
         if (!tuioObject.ContainsTuioToken()) return;
         var id = tuioObject.Token.ComponentId;
-        var combo =  _tuiCombinations.First(combo => combo.ViewFinderId == id || combo.MagnifyId == id);
+        var combo =  _tuiCombinations.FirstOrDefault(combo => combo.ViewFinderId == id || combo.MagnifyId == id);
         if(combo == null)
             return;
 

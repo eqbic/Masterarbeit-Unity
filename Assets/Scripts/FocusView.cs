@@ -78,13 +78,12 @@ public class FocusView : MonoBehaviour
         _focusMapControl = Instantiate(_tuiControl, transform);
         ((FocusMapControlTui)_focusMapControl).Init(tuioObject);
         RegisterControls();
-        _tokenTransform.UpdateRotation = false;
         _tokenTransform.Initialize(tuioObject, RenderMode.ScreenSpaceCamera);
     }
 
     public void InitJoystick(Tuio20Object joystick)
     {
-        _tuiControl.AddJoystick(joystick);
+        ((FocusMapControlTui)_focusMapControl).AddJoystick(joystick);
     }
 
     private void OnDestroy()
