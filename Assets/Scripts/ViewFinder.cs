@@ -35,6 +35,8 @@ public class ViewFinder : MonoBehaviour
         ViewFinderChannel = new GeoCoordChannel();
         FocusViewChannel = new GeoCoordChannel();
         
+        ViewFinderChannel.RaiseEvent(ScreenToCoords(position));
+        
         _viewFinderUI.Init();
         _offsetMarkerUI.Init(_viewFinderUI.Color);
         _offsetMarker.Init(FocusViewChannel, contextViewMap);
@@ -49,6 +51,8 @@ public class ViewFinder : MonoBehaviour
     public void InitTui(Tuio20Object tuioObject)
     {
         Destroy(_touchDrag);
+        _tokenTransform.UpdateRotation = false;
+        transform.rotation = Quaternion.identity;
         _tokenTransform.Initialize(tuioObject, RenderMode.ScreenSpaceCamera);
     }
     

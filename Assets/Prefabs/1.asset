@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: 1
   m_EditorClassIdentifier: 
   <MagnifyId>k__BackingField: 37
-  <ViewFinderId>k__BackingField: 20
+  <ViewFinderId>k__BackingField: 8
   <JoystickId>k__BackingField: 17
+  <PanXId>k__BackingField: 16
+  <PanYId>k__BackingField: 24

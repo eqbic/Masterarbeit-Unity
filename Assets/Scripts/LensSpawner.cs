@@ -69,4 +69,44 @@ public class LensSpawner : MonoBehaviour
             Destroy(focus.gameObject);
         }
     }
+
+    public void RemoveJoystick(uint focusId)
+    {
+        if (_focusViews.TryGetValue(focusId, out var focusView))
+        {
+            focusView.RemoveJoystick();
+        }
+    }
+
+    public void AddPanX(uint focusId, Tuio20Object panX)
+    {
+        if (_focusViews.TryGetValue(focusId, out var focusView))
+        {
+            focusView.AddPanX(panX);
+        }
+    }
+    
+    public void RemovePanX(uint focusId)
+    {
+        if (_focusViews.TryGetValue(focusId, out var focusView))
+        {
+            focusView.RemovePanX();
+        }
+    }
+    
+    public void RemovePanY(uint focusId)
+    {
+        if (_focusViews.TryGetValue(focusId, out var focusView))
+        {
+            focusView.RemovePanY();
+        }
+    }
+
+    public void AddPanY(uint focusId, Tuio20Object panY)
+    {
+        if (_focusViews.TryGetValue(focusId, out var focusView))
+        {
+            focusView.AddPanY(panY);
+        }
+    }
 }

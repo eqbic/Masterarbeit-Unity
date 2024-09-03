@@ -38,8 +38,6 @@ public class ConnectionUI : MonoBehaviour
         Vector2 vNormal2 = Vector2.Perpendicular(vFocus2).normalized;
         Vector3 vNormal3 = vNormal2;
 
-        
-        
         var dPointOffsetCircle0 = _rect.position + vNormal3 * (_offsetSize * 0.5f);
         var dPointOffsetCircle1 = _rect.position - vNormal3 * (_offsetSize * 0.5f);
         var dPointFocusCircle0 = _offsetMarker.position + vNormal3 * (_focusSize * 0.5f);

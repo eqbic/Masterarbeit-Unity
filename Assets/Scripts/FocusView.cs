@@ -22,6 +22,7 @@ public class FocusView : MonoBehaviour
     private GeoCoordChannel _focusViewChannel;
 
     private RectTransform _rect;
+    private RectTransform _mapRect;
 
     private void RegisterControls()
     {
@@ -50,11 +51,14 @@ public class FocusView : MonoBehaviour
     {
         _viewFinderChannel = viewFinder.ViewFinderChannel;
         _focusViewChannel = viewFinder.FocusViewChannel;
+
+        _tokenTransform.UpdateRotation = false;
        
         _ui.Init(viewFinder.Color, true);
         _focusMapUI.SetupTexture(512);
         
         _rect = GetComponent<RectTransform>();
+        _mapRect = _focusMapUI.GetComponent<RectTransform>();
         _rect.anchoredPosition = position;
         
         var coords = _viewFinderChannel.Data;
@@ -93,7 +97,7 @@ public class FocusView : MonoBehaviour
 
     private void UpdateRotation(float deltaDegree)
     {
-        _rect.Rotate(Vector3.forward, deltaDegree);
+        _mapRect.Rotate(Vector3.forward, deltaDegree);
     }
 
     private void UpdatePosition(Vector2 delta)
@@ -111,5 +115,30 @@ public class FocusView : MonoBehaviour
     {
         _focusMapUI.UpdateCoords(geoCoord);
         _focusViewChannel.RaiseEvent(geoCoord);
+    }
+
+    public void RemoveJoystick()
+    {
+        ((FocusMapControlTui)_focusMapControl).RemoveJoystick();
+    }
+
+    public void AddPanX(Tuio20Object panX)
+    {
+        ((FocusMapControlTui)_focusMapControl).AddPanX(panX);
+    }
+
+    public void RemovePanX()
+    {
+        ((FocusMapControlTui)_focusMapControl).RemovePanX();
+    }
+    
+    public void RemovePanY()
+    {
+        ((FocusMapControlTui)_focusMapControl).RemovePanY();
+    }
+    
+    public void AddPanY(Tuio20Object panY)
+    {
+        ((FocusMapControlTui)_focusMapControl).AddPanY(panY);
     }
 }

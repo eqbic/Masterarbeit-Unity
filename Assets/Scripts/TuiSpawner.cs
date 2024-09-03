@@ -29,7 +29,8 @@ public class TuiSpawner : MonoBehaviour
         if (!tuioObject.ContainsTuioToken()) return;
         var position = TuioUtils.ToScreenPoint(tuioObject.Token.Position);
         var id = tuioObject.Token.ComponentId;
-        var combo =  _tuiCombinations.FirstOrDefault(combo => combo.ViewFinderId == id || combo.MagnifyId == id || combo.JoystickId == id);
+        var combo =  _tuiCombinations.
+            FirstOrDefault(combo => combo.Ids.Contains(id));
         if (combo == null)
         {
             print("no match found");
@@ -59,32 +60,58 @@ public class TuiSpawner : MonoBehaviour
             combo.Joystick = tuioObject;
             _lensSpawner.AddJoystick(combo.MagnifyId, tuioObject);
         }
+
+        if (id == combo.PanXId)
+        {
+            combo.PanX = tuioObject;
+            _lensSpawner.AddPanX(combo.MagnifyId, tuioObject);
+        }
+
+        if (id == combo.PanYId)
+        {
+            combo.PanY = tuioObject;
+            _lensSpawner.AddPanY(combo.MagnifyId, tuioObject);
+        }
     }
 
     private void DestroyLens(object sender, Tuio20Object tuioObject)
     {
         if (!tuioObject.ContainsTuioToken()) return;
         var id = tuioObject.Token.ComponentId;
-        var combo =  _tuiCombinations.FirstOrDefault(combo => combo.ViewFinderId == id || combo.MagnifyId == id);
+        var combo =  
+            _tuiCombinations.FirstOrDefault(combo => combo.Ids.Contains(id));
         if(combo == null)
             return;
 
         if (id == combo.MagnifyId)
         {
             combo.Magnify = null;
+            _lensSpawner.DestroyFocusView(combo.MagnifyId);
         }
 
         if (id == combo.ViewFinderId)
         {
             combo.ViewFinder = null;
+            _lensSpawner.DestroyViewFinder(combo.ViewFinderId);
         }
 
         if (id == combo.JoystickId)
         {
             combo.Joystick = null;
+            _lensSpawner.RemoveJoystick(combo.MagnifyId);
         }
         
-        _lensSpawner.DestroyFocusView(combo.MagnifyId);
-        _lensSpawner.DestroyViewFinder(combo.ViewFinderId);
+        if (id == combo.PanXId)
+        {
+            combo.PanX = null;
+            _lensSpawner.RemovePanX(combo.MagnifyId);
+        }
+
+        if (id == combo.PanYId)
+        {
+            combo.PanY = null;
+            _lensSpawner.RemovePanY(combo.MagnifyId);
+        }
+        
     }
 }
