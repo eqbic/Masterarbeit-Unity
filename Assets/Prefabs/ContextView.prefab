@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4909048427757048234}
   - component: {fileID: 7187407755456818394}
-  - component: {fileID: 2310247200635870076}
   - component: {fileID: 3241745088069015106}
   - component: {fileID: 3983061783986791993}
-  - component: {fileID: 3147819296970495304}
   - component: {fileID: 550532493699095041}
   - component: {fileID: 947952725962651778}
+  - component: {fileID: 3667805959774061385}
+  - component: {fileID: 7407838335371923541}
+  - component: {fileID: 9217373525753623461}
   m_Layer: 5
   m_Name: ContextView
   m_TagString: Untagged
@@ -50,36 +51,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3354209548549552971}
   m_CullTransparentMesh: 1
---- !u!114 &2310247200635870076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3354209548549552971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f752f46dc88f9b74ebe63ae5ecb6288e, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &3241745088069015106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,30 +117,6 @@ MonoBehaviour:
   defaultTexture: {fileID: 2800000, guid: ea7eb0aa8eaab054a91d4219f9719f63, type: 3}
   defaultAlign: 7
   allowAddMarkerByM: 1
---- !u!114 &3147819296970495304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3354209548549552971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 220610b23c3c8094fa0cb6262a81d965, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activeTexture: {fileID: 0}
-  allowZoom: 0
-  allowUserControl: 0
-  checkScreenSizeForWheelZoom: 1
-  drawingElementManager: {fileID: 0}
-  isMapDrag: 0
-  invertTouchZoom: 0
-  markerManager: {fileID: 0}
-  smoothZoom: 1
-  zoomInOnDoubleClick: 1
-  zoomMode: 0
-  zoomSensitivity: 1
 --- !u!114 &550532493699095041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,3 +149,70 @@ MonoBehaviour:
   _viewFinderPrefab: {fileID: 20938313237053337, guid: 91a69b9a44e8cc142b79c852c25cdecb, type: 3}
   _focusViewPrefab: {fileID: 5657974580616893575, guid: e257e42b86dfe404aaed9fd2ce173108, type: 3}
   _viewParent: {fileID: 0}
+--- !u!114 &3667805959774061385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3354209548549552971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f052841418904d4aad611c9cffc01a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  halfSize: 0
+  useMaxSide: 0
+  forwarder: {fileID: 0}
+  mapCamera: {fileID: 0}
+--- !u!114 &7407838335371923541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3354209548549552971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: f752f46dc88f9b74ebe63ae5ecb6288e, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!114 &9217373525753623461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3354209548549552971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7525a28c99bdee14d850d3e31e878b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeTexture: {fileID: 0}
+  allowZoom: 0
+  allowUserControl: 0
+  checkScreenSizeForWheelZoom: 1
+  drawingElementManager: {fileID: 0}
+  isMapDrag: 0
+  invertTouchZoom: 0
+  markerManager: {fileID: 0}
+  smoothZoom: 1
+  zoomInOnDoubleClick: 1
+  zoomMode: 0
+  zoomSensitivity: 1

@@ -7,6 +7,8 @@ public class ContextView : MonoBehaviour
     [SerializeField] private float _zoom;
     [SerializeField] private OnlineMaps _maps;
 
+    public static OnlineMapsGeoRect ContextBounds { get; private set; }
+
     private void Start()
     {
         SetupMaps();
@@ -15,5 +17,6 @@ public class ContextView : MonoBehaviour
     private void SetupMaps()
     {
         _maps.SetPositionAndZoom(_longitude, _latitude, _zoom);
+        ContextBounds = _maps.bounds;
     }
 }
