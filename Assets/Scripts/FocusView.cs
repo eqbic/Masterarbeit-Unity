@@ -5,7 +5,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class FocusView : MonoBehaviour
+public class FocusView : ViewBase
 {
     private FocusMapControlBase _focusMapControl;
     [SerializeField] private FocusMapUI _focusMapUI;
@@ -20,6 +20,9 @@ public class FocusView : MonoBehaviour
     
     private GeoCoordChannel _viewFinderChannel;
     private GeoCoordChannel _focusViewChannel;
+
+    public GeoCoordChannel FocusViewChannel => _focusViewChannel;
+    public GeoCoordChannel ViewFinderChannel => _viewFinderChannel;
 
     private RectTransform _rect;
     private RectTransform _mapRect;
@@ -67,6 +70,7 @@ public class FocusView : MonoBehaviour
         
         _viewFinderChannel.OnChange += UpdateCoordinate;
         _connectionUI.Init(viewFinder.OffsetMarker, viewFinder.Color);
+        Loaded(_focusMapUI.Map);
     }
 
     public void InitTouch()

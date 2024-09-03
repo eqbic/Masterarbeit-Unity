@@ -451,6 +451,8 @@ GameObject:
   - component: {fileID: 1519144141691766600}
   - component: {fileID: 5968836191466929616}
   - component: {fileID: 2444035267904645705}
+  - component: {fileID: 6400167814507034271}
+  - component: {fileID: 4242473997244951303}
   m_Layer: 5
   m_Name: FocusView
   m_TagString: Untagged
@@ -614,6 +616,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lineRenderer: {fileID: 4389269027557522993}
+--- !u!114 &6400167814507034271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2977748129953188933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b549dbd45045ad8c999c3cd41307d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gpxData:
+  - {fileID: 8797908669173068190, guid: edbd712434bf0824f9a2b4ffde9fe5ba, type: 3}
+  _view: {fileID: 5657974580616893575}
+--- !u!114 &4242473997244951303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2977748129953188933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52ba3963a9d40358d8661d406e35bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _record: 0
+  _focusView: {fileID: 5657974580616893575}
 --- !u!1 &3410708272448031459
 GameObject:
   m_ObjectHideFlags: 0

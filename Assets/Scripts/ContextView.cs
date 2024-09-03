@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class ContextView : MonoBehaviour
+public class ContextView : ViewBase
 {
     [SerializeField] private double _latitude;
     [SerializeField] private double _longitude;
@@ -8,6 +9,8 @@ public class ContextView : MonoBehaviour
     [SerializeField] private OnlineMaps _maps;
 
     public static OnlineMapsGeoRect ContextBounds { get; private set; }
+
+    
 
     private void Start()
     {
@@ -18,5 +21,6 @@ public class ContextView : MonoBehaviour
     {
         _maps.SetPositionAndZoom(_longitude, _latitude, _zoom);
         ContextBounds = _maps.bounds;
+       Loaded(_maps);
     }
 }

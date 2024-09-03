@@ -12,6 +12,8 @@ namespace UI
         private RawImage _image;
         private OnlineMaps _map;
         private OnlineMapsGeoRect _bounds;
+
+        public OnlineMaps Map => _map;
         
         private void Awake()
         {
