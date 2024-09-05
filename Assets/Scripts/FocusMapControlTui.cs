@@ -61,8 +61,8 @@ public class FocusMapControlTui : FocusMapControlBase
 
     private void UpdatePan()
     {
-        JoystickControl();
-        // PanControl();
+        // JoystickControl();
+        PanControl();
     }
 
     private void PanControl()
@@ -116,8 +116,8 @@ public class FocusMapControlTui : FocusMapControlBase
 
     private void UpdateZoom()
     {
-        // PanZoom();
-        JoystickZoom();
+        PanZoom();
+        // JoystickZoom();
         // MagnifyZoom();
     }
 

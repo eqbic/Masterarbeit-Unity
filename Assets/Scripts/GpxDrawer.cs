@@ -7,6 +7,7 @@ public class GpxDrawer : MonoBehaviour
 {
     [SerializeField] private List<GpxData> _gpxData;
     [SerializeField] private ViewBase _view;
+    [SerializeField] private float _drawWidth = 5f;
     private OnlineMapsGPXObject _gpxObject;
     private OnlineMapsDrawingElementManager _elementManager;
     private OnlineMapsDrawingLine _line;
@@ -38,7 +39,7 @@ public class GpxDrawer : MonoBehaviour
             }
                 
             var p = points.Select(w => new OnlineMapsVector2d(w.lon, w.lat));
-            _line = new OnlineMapsDrawingLine(p, Color.cyan, 5);
+            _line = new OnlineMapsDrawingLine(p, Color.cyan, _drawWidth);
             _elementManager.Add(_line);
         }
     }

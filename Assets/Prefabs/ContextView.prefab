@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3667805959774061385}
   - component: {fileID: 7407838335371923541}
   - component: {fileID: 9217373525753623461}
+  - component: {fileID: 7178228758922001070}
   m_Layer: 5
   m_Name: ContextView
   m_TagString: Untagged
@@ -216,3 +217,20 @@ MonoBehaviour:
   zoomInOnDoubleClick: 1
   zoomMode: 0
   zoomSensitivity: 1
+--- !u!114 &7178228758922001070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3354209548549552971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b549dbd45045ad8c999c3cd41307d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gpxData:
+  - {fileID: 8797908669173068190, guid: edbd712434bf0824f9a2b4ffde9fe5ba, type: 3}
+  - {fileID: 4166053052215877881, guid: e0446d218e954ed4f8753128d05bb09c, type: 3}
+  _view: {fileID: 550532493699095041}
+  _drawWidth: 2

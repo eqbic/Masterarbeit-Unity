@@ -707,6 +707,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7178228758922001070, guid: 296f875e05356354fbba2acdc0c84b1d, type: 3}
+      propertyPath: _gpxData.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178228758922001070, guid: 296f875e05356354fbba2acdc0c84b1d, type: 3}
+      propertyPath: _gpxData.Array.data[1]
+      value: 
+      objectReference: {fileID: 7337292172891326652, guid: 5063f8656aabb4441bb52d2a8eade20a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -807,6 +815,10 @@ PrefabInstance:
     - target: {fileID: 6145325159829503855, guid: 8060cb62958d7364eb5f3903515bf10a, type: 3}
       propertyPath: m_Name
       value: TouchSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075337102382955010, guid: 8060cb62958d7364eb5f3903515bf10a, type: 3}
+      propertyPath: timeLimit
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

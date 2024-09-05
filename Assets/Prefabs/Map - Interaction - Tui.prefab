@@ -48,4 +48,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0c2b5d13f2445939cdce1f74ba86d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _invertJoystick: 0
+  _invertJoystick: 1

@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 2444035267904645705}
   - component: {fileID: 6400167814507034271}
   - component: {fileID: 4242473997244951303}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: FocusView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -631,6 +631,7 @@ MonoBehaviour:
   _gpxData:
   - {fileID: 8797908669173068190, guid: edbd712434bf0824f9a2b4ffde9fe5ba, type: 3}
   _view: {fileID: 5657974580616893575}
+  _drawWidth: 5
 --- !u!114 &4242473997244951303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,7 +639,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2977748129953188933}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e52ba3963a9d40358d8661d406e35bba, type: 3}
   m_Name: 

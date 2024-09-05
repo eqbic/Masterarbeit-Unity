@@ -69,7 +69,7 @@ public class GpxRecorder : MonoBehaviour
         {
             Directory.CreateDirectory(path);
         }
-        File.WriteAllText(Path.Combine(path, _gpxTrack.metadata.author.name + ".gpx"), gpxString.outerXml);
+        // File.WriteAllText(Path.Combine(path, _gpxTrack.metadata.author.name + ".gpx"), gpxString.outerXml);
     }
 
     private void Record(GeoCoord geoCoord)
