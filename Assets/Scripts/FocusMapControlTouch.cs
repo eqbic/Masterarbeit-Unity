@@ -1,7 +1,9 @@
 ﻿using System;
+using Extensions;
 using TouchScript.Gestures;
 using TouchScript.Gestures.TransformGestures;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class FocusMapControlTouch : FocusMapControlBase
 {
@@ -10,17 +12,26 @@ public class FocusMapControlTouch : FocusMapControlBase
     [SerializeField] private ScreenTransformGesture _rotateGesture;
     [SerializeField] private TapGesture _resetTap;
     [SerializeField] private Joystick _joystickPrefab;
+    [SerializeField] private ZoomSlider _zoomSliderPrefab;
 
 
     [SerializeField] private float _zoomSpeed = 2.0f;
     
     private float _zoom = 17f;
     private Joystick _joystick;
+    private ZoomSlider _zoomSlider;
+
+    private float _minZoom = 8f;
+    private float _maxZoom = 21f;
 
     private void Awake()
     {
         _joystick = Instantiate(_joystickPrefab, transform.parent.parent);
-        _joystick.Init(transform as RectTransform);
+        _joystick.Init(transform.parent as RectTransform);
+
+        _zoomSlider = Instantiate(_zoomSliderPrefab, transform.parent.parent);
+        _zoomSlider.Init(transform.parent as RectTransform, _joystick, _zoom);
+        _joystick.transform.SetAsLastSibling();
     }
 
     private void OnEnable()
@@ -30,6 +41,13 @@ public class FocusMapControlTouch : FocusMapControlBase
         _rotateGesture.Transformed += Rotate;
         _resetTap.Tapped += ResetView;
         _joystick.OnMove += Pan;
+        _zoomSlider.OnZoom += SliderZoom;
+    }
+
+    private void SliderZoom(float normalizedZoom)
+    {
+        var zoom = Mathf.Lerp(_minZoom, _maxZoom, normalizedZoom);
+        Zoom(zoom);
     }
 
     private void Zoom(object sender, EventArgs e)
@@ -60,5 +78,6 @@ public class FocusMapControlTouch : FocusMapControlBase
         _rotateGesture.Transformed -= Rotate;
         _resetTap.Tapped -= ResetView;
         _joystick.OnMove -= Pan;
+        _zoomSlider.OnZoom -= SliderZoom;
     }
 }

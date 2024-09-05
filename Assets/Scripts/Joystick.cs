@@ -18,7 +18,7 @@ public class Joystick : MonoBehaviour
     private RectTransform _knobTransform;
     private RectTransform _parent;
     private RectTransform _transform;
-    private Vector2 _offset = Vector2.zero;
+    public Vector2 Offset { get; private set; } = Vector2.zero;
 
     private void Awake()
     {
@@ -36,13 +36,12 @@ public class Joystick : MonoBehaviour
 
     public void Init(RectTransform parent)
     {
-        _parent = parent.parent as RectTransform;
+        _parent = parent;
     }
 
     private void Update()
     {
-        _transform.anchoredPosition = _parent.anchoredPosition + Vector2.right * 300f + _offset;
-        
+        _transform.anchoredPosition = _parent.anchoredPosition + Vector2.right * 300f + Offset;
         if (_direction != Vector2.zero)
         {
             OnMove?.Invoke(_direction * (_maxSpeed * _directionFactor));
@@ -65,7 +64,7 @@ public class Joystick : MonoBehaviour
 
     private void MoveWidget(object sender, EventArgs e)
     {
-        _offset += (Vector2)_backgroundGesture.DeltaPosition;
+        Offset += (Vector2)_backgroundGesture.DeltaPosition;
     }
 
     private void ResetKnob(object sender, EventArgs e)

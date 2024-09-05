@@ -229,6 +229,7 @@ MonoBehaviour:
   _rotateGesture: {fileID: 5081965156218227276}
   _resetTap: {fileID: 2156396245841871803}
   _joystickPrefab: {fileID: 4336830763267522682, guid: 1e4289341ffec9142801252250947e3b, type: 3}
+  _zoomSliderPrefab: {fileID: 795799621427514362, guid: 9792d9eca5a8a7f4c897238750d5dcfd, type: 3}
   _zoomSpeed: 2
 --- !u!114 &1088979408838615214
 MonoBehaviour:
