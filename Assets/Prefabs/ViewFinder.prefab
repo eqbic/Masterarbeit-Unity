@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 348496031958592004}
   - component: {fileID: 1908889907650716075}
   - component: {fileID: 2104921224947516657}
-  - component: {fileID: 6143472697972131427}
+  - component: {fileID: 4379881859748501456}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6143472697972131427
+--- !u!114 &4379881859748501456
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,11 +85,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5530674238862154023}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 449c2ef2f456492ab1c9a78263bb3d78, type: 3}
+  m_Script: {fileID: 11500000, guid: 12185efc4cfed8c42b25884e9984a256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shader: {fileID: -6465566751694194690, guid: d38fd6c034858904c82123902bab72ba, type: 3}
-  _outlineThickness: 0.8
+  _physicalSize: {fileID: 4466309412283456034}
+  _shader: {fileID: -6465566751694194690, guid: 9ab47a41301246f46a27e44aec652295, type: 3}
+  _outlineThicknessMM: 3
 --- !u!1 &6538803599847649538
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,8 +104,9 @@ GameObject:
   - component: {fileID: 2670765131347011826}
   - component: {fileID: 2140917562706904764}
   - component: {fileID: 6157230596564521667}
-  - component: {fileID: 2344493524579510985}
   - component: {fileID: 189963246552077270}
+  - component: {fileID: 9012616490238892114}
+  - component: {fileID: 5479388712972090326}
   m_Layer: 5
   m_Name: OffsetMarker
   m_TagString: Untagged
@@ -286,20 +288,6 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &2344493524579510985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6538803599847649538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 449c2ef2f456492ab1c9a78263bb3d78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shader: {fileID: -6465566751694194690, guid: d38fd6c034858904c82123902bab72ba, type: 3}
-  _outlineThickness: 0.8
 --- !u!114 &189963246552077270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +300,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d090c42a22a14e8580dea1f4beeaf71a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9012616490238892114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6538803599847649538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12185efc4cfed8c42b25884e9984a256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _physicalSize: {fileID: 5479388712972090326}
+  _shader: {fileID: -6465566751694194690, guid: 9ab47a41301246f46a27e44aec652295, type: 3}
+  _outlineThicknessMM: 2
+--- !u!114 &5479388712972090326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6538803599847649538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea02d06664f34cd9b14d7be28a9d7ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sizeInMm: {x: 10, y: 10}
 --- !u!1 &8202052581729085367
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,6 +344,7 @@ GameObject:
   - component: {fileID: 2040635024924808533}
   - component: {fileID: 7338092162268145318}
   - component: {fileID: 3456176655391838415}
+  - component: {fileID: 4466309412283456034}
   m_Layer: 5
   m_Name: ViewFinder
   m_TagString: Untagged
@@ -379,8 +396,9 @@ MonoBehaviour:
   _offsetMarker: {fileID: 189963246552077270}
   _touchDrag: {fileID: 2040635024924808533}
   _tokenTransform: {fileID: 5369908512434294020}
-  _viewFinderUI: {fileID: 6143472697972131427}
-  _offsetMarkerUI: {fileID: 2344493524579510985}
+  _touchDestroy: {fileID: 3456176655391838415}
+  _viewFinderUI: {fileID: 4379881859748501456}
+  _offsetMarkerUI: {fileID: 9012616490238892114}
 --- !u!114 &509903854671869742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,3 +506,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc7f176a388949b7842dcff220c73ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4466309412283456034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8202052581729085367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea02d06664f34cd9b14d7be28a9d7ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sizeInMm: {x: 20, y: 20}

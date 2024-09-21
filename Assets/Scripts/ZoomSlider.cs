@@ -15,17 +15,12 @@ public class ZoomSlider : MonoBehaviour
 
     public event Action<float> OnZoom;
 
-    #if UNITY_EDITOR
-    private void OnValidate()
-    {
-        InitUI();
-    }
-    #endif
-
-    private void Start()
-    {
-        InitUI();
-    }
+    // #if UNITY_EDITOR
+    // private void OnValidate()
+    // {
+    //     InitUI(300 * Vector2.one);
+    // }
+    // #endif
 
     private void Awake()
     {
@@ -51,6 +46,7 @@ public class ZoomSlider : MonoBehaviour
     {
         _parent = parent;
         _joystick = joystick;
+        _joystick.OnSizeSet += InitUI;
     }
     
     private void Update()
@@ -62,8 +58,9 @@ public class ZoomSlider : MonoBehaviour
         // }
     }
 
-    private void InitUI()
+    private void InitUI(Vector2 size)
     {
+        _transform.sizeDelta = size;
         _arcDrawer.DrawArc(_angle, _radius);
         _zoomKnob.Init(_angle, _radius);
     }

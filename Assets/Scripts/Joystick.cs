@@ -7,11 +7,16 @@ public class Joystick : MonoBehaviour
 {
     [SerializeField] private ScreenTransformGesture _knobGesture;
     [SerializeField] private ScreenTransformGesture _backgroundGesture;
+    [SerializeField] private ScreenTransformGesture _rotateGesture;
     [SerializeField] private RectTransform _backgroundTransform;
+    [SerializeField] private PhysicalSize _physicalSize;
     [SerializeField] private float _maxSpeed = 5f;
     [SerializeField] private bool _inverted = false;
     public event Action<Vector2> OnMove;
+    public event Action<float> OnRotate;
+    public event Action<Vector2> OnSizeSet;
 
+    private Vector2 _lastRotationVector;
     private float _radius;
     private Vector2 _direction;
     private float _directionFactor = 1f;
@@ -28,9 +33,6 @@ public class Joystick : MonoBehaviour
     private void Start()
     {
         _knobTransform = _knobGesture.GetComponent<RectTransform>();
-        var size = _knobTransform.rect.width;
-        var parentSize = _backgroundTransform.rect.width;
-        _radius = 0.5f * (parentSize - size);
         _directionFactor = _inverted ? -1f : 1f;
     }
 
@@ -50,16 +52,42 @@ public class Joystick : MonoBehaviour
 
     private void OnEnable()
     {
+        _physicalSize.OnSizeSet += UpdateSize;
         _knobGesture.Transformed += MoveJoystick;
         _knobGesture.TransformCompleted += ResetKnob;
         _backgroundGesture.Transformed += MoveWidget;
+        _rotateGesture.TransformStarted += InitRotation;
+        _rotateGesture.Transformed += UpdateRotation;
     }
 
     private void OnDisable()
     {
+        _physicalSize.OnSizeSet -= UpdateSize;
         _knobGesture.Transformed -= MoveJoystick;
         _knobGesture.TransformCompleted -= ResetKnob;
         _backgroundGesture.Transformed -= MoveWidget;
+        _rotateGesture.TransformStarted -= InitRotation;
+        _rotateGesture.Transformed -= UpdateRotation;
+    }
+
+    private void UpdateSize(Vector2 parentSize)
+    {
+        var size = _knobTransform.rect.width;
+        _radius = 0.5f * (parentSize.x - 2 * size);
+        OnSizeSet?.Invoke(_transform.rect.size);
+    }
+
+    private void UpdateRotation(object sender, EventArgs e)
+    {
+        var fingerVector = ((_rotateGesture.ScreenPosition - _transform.anchoredPosition) - 0.5f * _transform.rect.size).normalized;
+        var deltaAngle = Vector2.SignedAngle(_lastRotationVector, fingerVector);
+        _lastRotationVector = fingerVector;
+        OnRotate?.Invoke(deltaAngle);
+    }
+
+    private void InitRotation(object sender, EventArgs e)
+    {
+        _lastRotationVector = ((_rotateGesture.ScreenPosition - _transform.anchoredPosition) - 0.5f * _transform.rect.size).normalized;
     }
 
     private void MoveWidget(object sender, EventArgs e)

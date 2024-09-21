@@ -7,6 +7,7 @@ using UnityEngine.Serialization;
 
 public class FocusMapControlTouch : FocusMapControlBase
 {
+    [SerializeField] private TouchControl _controlType;
     [SerializeField] private ScreenTransformGesture _zoomGesture;
     [SerializeField] private ScreenTransformGesture _panGesture;
     [SerializeField] private ScreenTransformGesture _rotateGesture;
@@ -26,6 +27,12 @@ public class FocusMapControlTouch : FocusMapControlBase
 
     private void Awake()
     {
+        if(_controlType == TouchControl.Joystick)
+            CreateJoystick();
+    }
+
+    private void CreateJoystick()
+    {
         _joystick = Instantiate(_joystickPrefab, transform.parent.parent);
         _joystick.Init(transform.parent as RectTransform);
 
@@ -34,14 +41,34 @@ public class FocusMapControlTouch : FocusMapControlBase
         _joystick.transform.SetAsLastSibling();
     }
 
+
     private void OnEnable()
+    {
+        switch (_controlType)
+        {
+            case TouchControl.Gesture:
+                RegisterGestures();
+                break;
+            case TouchControl.Joystick:
+                RegisterJoystick();
+                break;
+        }
+
+        _resetTap.Tapped += ResetView;
+    }
+
+    private void RegisterJoystick()
+    {
+        _joystick.OnMove += Pan;
+        _zoomSlider.OnZoom += SliderZoom;
+        _joystick.OnRotate += Rotate;
+    }
+
+    private void RegisterGestures()
     {
         _zoomGesture.Transformed += Zoom;
         _panGesture.Transformed += Pan;
         _rotateGesture.Transformed += Rotate;
-        _resetTap.Tapped += ResetView;
-        _joystick.OnMove += Pan;
-        _zoomSlider.OnZoom += SliderZoom;
     }
 
     private void SliderZoom(float normalizedZoom)
@@ -73,11 +100,35 @@ public class FocusMapControlTouch : FocusMapControlBase
 
     private void OnDisable()
     {
+        switch (_controlType)
+        {
+            case TouchControl.Gesture:
+                UnregisterGestures();
+                break;
+            case TouchControl.Joystick:
+                UnregisterJoystick();
+                break;
+        }
+        _resetTap.Tapped -= ResetView;
+    }
+
+    private void UnregisterJoystick()
+    {
+        _joystick.OnMove -= Pan;
+        _zoomSlider.OnZoom -= SliderZoom;
+        _joystick.OnRotate -= Rotate;
+    }
+
+    private void UnregisterGestures()
+    {
         _zoomGesture.Transformed -= Zoom;
         _panGesture.Transformed -= Pan;
         _rotateGesture.Transformed -= Rotate;
-        _resetTap.Tapped -= ResetView;
-        _joystick.OnMove -= Pan;
-        _zoomSlider.OnZoom -= SliderZoom;
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(_joystick.gameObject);
+        Destroy(_zoomSlider.gameObject);
     }
 }

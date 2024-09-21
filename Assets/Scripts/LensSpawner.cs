@@ -15,7 +15,7 @@ public class LensSpawner : MonoBehaviour
     public ViewFinder SpawnViewFinder(uint id, Vector2 screenPosition, InputType inputType, Tuio20Object tuioObject = null)
     {
         var finder = Instantiate(_viewFinderPrefab, _viewParent);
-        finder.Init(id, screenPosition, _contextViewMap);
+        finder.Init(id, screenPosition, _contextViewMap, DestroyGroup);
         switch (inputType)
         {
             case InputType.Touch:
@@ -27,6 +27,12 @@ public class LensSpawner : MonoBehaviour
         }
         _viewFinders.Add(id, finder);
         return finder;
+    }
+
+    private void DestroyGroup(uint id)
+    {
+        DestroyFocusView(id);
+        DestroyViewFinder(id);
     }
 
     public void DestroyViewFinder(uint id)

@@ -6,6 +6,8 @@ public class TouchDestroy : MonoBehaviour
 {
     private LongPressGesture _longPress;
 
+    public event Action OnTouchDestroy;
+
     private void Awake()
     {
         SetupDestroyOnLongPress();
@@ -23,7 +25,7 @@ public class TouchDestroy : MonoBehaviour
 
     private void DestroyViewFinder(object sender, EventArgs e)
     {
-        Destroy(gameObject);
+        OnTouchDestroy?.Invoke();
     }
  private void OnDestroy()
     {

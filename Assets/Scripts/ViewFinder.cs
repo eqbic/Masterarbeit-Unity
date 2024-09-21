@@ -1,4 +1,5 @@
-﻿using Channels;
+﻿using System;
+using Channels;
 using TuioNet.Tuio20;
 using TuioUnity.Tuio20;
 using UI;
@@ -10,10 +11,11 @@ public class ViewFinder : MonoBehaviour
 
     [SerializeField] private Draggable _touchDrag;
     [SerializeField] private Tuio20TokenTransform _tokenTransform;
+    [SerializeField] private TouchDestroy _touchDestroy;
     
     [Header("UI")]
-    [SerializeField] private CircleUI _viewFinderUI;
-    [SerializeField] private CircleUI _offsetMarkerUI;
+    [SerializeField] private OutlineUI _viewFinderUI;
+    [SerializeField] private OutlineUI _offsetMarkerUI;
     
     public GeoCoordChannel ViewFinderChannel { get; private set; }
     public GeoCoordChannel FocusViewChannel { get; private set; }
@@ -22,10 +24,12 @@ public class ViewFinder : MonoBehaviour
     
     private OnlineMaps _contextViewMap;
     public RectTransform OffsetMarker => _offsetMarker.transform as RectTransform;
+
+    private Action<uint> _onDestroy;
     
     public uint Id { get; private set; }
 
-    public void Init(uint id, Vector2 position, OnlineMaps contextViewMap)
+    public void Init(uint id, Vector2 position, OnlineMaps contextViewMap, Action<uint> onDestroy)
     {
         Id = id;
         RectTransform = GetComponent<RectTransform>();
@@ -40,7 +44,15 @@ public class ViewFinder : MonoBehaviour
         _viewFinderUI.Init();
         _offsetMarkerUI.Init(_viewFinderUI.Color);
         _offsetMarker.Init(FocusViewChannel, contextViewMap);
-        
+
+        _onDestroy = onDestroy;
+        _touchDestroy.OnTouchDestroy += DestroyGroup;
+
+    }
+
+    private void DestroyGroup()
+    {
+        _onDestroy?.Invoke(Id);
     }
 
     public void InitTouch()

@@ -4,12 +4,13 @@ using TuioUnity.Tuio20;
 using UI;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class FocusView : ViewBase
 {
     private FocusMapControlBase _focusMapControl;
     [SerializeField] private FocusMapUI _focusMapUI;
-    [SerializeField] private CircleUI _ui;
+    [SerializeField] private OutlineUI _ui;
     [SerializeField] private ConnectionUI _connectionUI;
 
     [SerializeField] private Draggable _touchDrag;
@@ -57,7 +58,7 @@ public class FocusView : ViewBase
 
         _tokenTransform.UpdateRotation = false;
        
-        _ui.Init(viewFinder.Color, true);
+        _ui.Init(viewFinder.Color);
         _focusMapUI.SetupTexture(512);
         
         _rect = GetComponent<RectTransform>();
@@ -97,6 +98,7 @@ public class FocusView : ViewBase
     private void OnDestroy()
     {
         _viewFinderChannel.OnChange -= UpdateCoordinate;
+        Destroy(_focusMapControl);
     }
 
     private void UpdateRotation(float deltaDegree)
@@ -145,4 +147,5 @@ public class FocusView : ViewBase
     {
         ((FocusMapControlTui)_focusMapControl).AddPanY(panY);
     }
+
 }
