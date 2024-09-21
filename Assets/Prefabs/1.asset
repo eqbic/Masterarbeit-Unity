@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f38d56954064d80848fb153c5badb0e, type: 3}
   m_Name: 1
   m_EditorClassIdentifier: 
-  <MagnifyId>k__BackingField: 37
-  <ViewFinderId>k__BackingField: 8
-  <JoystickId>k__BackingField: 17
+  <MagnifyId>k__BackingField: 38
+  <ViewFinderId>k__BackingField: 2
+  <JoystickId>k__BackingField: 14
   <PanXId>k__BackingField: 16
   <PanYId>k__BackingField: 24

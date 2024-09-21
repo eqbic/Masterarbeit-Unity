@@ -13,6 +13,8 @@ public class ZoomSlider : MonoBehaviour
     private Joystick _joystick;
     private Vector2 _offset;
 
+    private float _initZoom;
+
     public event Action<float> OnZoom;
 
     // #if UNITY_EDITOR
@@ -46,6 +48,7 @@ public class ZoomSlider : MonoBehaviour
     {
         _parent = parent;
         _joystick = joystick;
+        _initZoom = zoom;
         _joystick.OnSizeSet += InitUI;
     }
     
@@ -62,6 +65,6 @@ public class ZoomSlider : MonoBehaviour
     {
         _transform.sizeDelta = size;
         _arcDrawer.DrawArc(_angle, _radius);
-        _zoomKnob.Init(_angle, _radius);
+        _zoomKnob.Init(_angle, _radius, _initZoom);
     }
 }

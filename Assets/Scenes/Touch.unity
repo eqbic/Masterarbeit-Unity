@@ -680,10 +680,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ContextView
       objectReference: {fileID: 0}
-    - target: {fileID: 3667805959774061385, guid: 296f875e05356354fbba2acdc0c84b1d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4909048427757048234, guid: 296f875e05356354fbba2acdc0c84b1d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

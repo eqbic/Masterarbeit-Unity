@@ -37,7 +37,8 @@ public class FocusMapControlTouch : FocusMapControlBase
         _joystick.Init(transform.parent as RectTransform);
 
         _zoomSlider = Instantiate(_zoomSliderPrefab, transform.parent.parent);
-        _zoomSlider.Init(transform.parent as RectTransform, _joystick, _zoom);
+        var normalizedZoom = _zoom.Remap(8, 21, 0, 1);
+        _zoomSlider.Init(transform.parent as RectTransform, _joystick, normalizedZoom);
         _joystick.transform.SetAsLastSibling();
     }
 

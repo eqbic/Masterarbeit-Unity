@@ -26,6 +26,8 @@ public class FocusMapControlTui : FocusMapControlBase
 
     private float _directionFactor;
 
+    private System.Numerics.Vector2 _joystickInitialPosition;
+
     public void Init(Tuio20Object magnify)
     {
         _magnify = magnify.Token;
@@ -37,6 +39,7 @@ public class FocusMapControlTui : FocusMapControlBase
     public void AddJoystick(Tuio20Object joystick)
     {
         _joystick = joystick.Token;
+        _joystickInitialPosition = _joystick.Position;
         _lastAngleZoom = _joystick.Angle;
     }
 
@@ -61,8 +64,8 @@ public class FocusMapControlTui : FocusMapControlBase
 
     private void UpdatePan()
     {
-        // JoystickControl();
-        PanControl();
+        JoystickControl();
+        // PanControl();
     }
 
     private void PanControl()
@@ -78,10 +81,10 @@ public class FocusMapControlTui : FocusMapControlBase
     {
         if (_joystick == null) return;
         
-        var v = (_joystick.Position - _magnify.Position).ToUnity();
+        var v = (_joystick.Position - _joystickInitialPosition).ToUnity();
         v.x *= Screen.width;
         v.y *= -Screen.height;
-        var speed = v.magnitude - 500f;
+        var speed = v.magnitude;
         if (speed > 0f)
         {
             Pan(v.normalized * (_directionFactor * (speed * 1f * Time.deltaTime)));
@@ -116,8 +119,8 @@ public class FocusMapControlTui : FocusMapControlBase
 
     private void UpdateZoom()
     {
-        PanZoom();
-        // JoystickZoom();
+        // PanZoom();
+        JoystickZoom();
         // MagnifyZoom();
     }
 

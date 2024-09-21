@@ -50,12 +50,18 @@ public class ZoomKnob : MonoBehaviour
         OnZoom?.Invoke(normalizedZoom);
     }
 
-    public void Init(float angle, float radius)
+    private void SetPositionByZoom(float normalizedZoom)
+    {
+        var angle = normalizedZoom * _angle + _startAngle;
+        var direction = Quaternion.AngleAxis(angle, Vector3.back) * Vector2.up; 
+        RectTransform.anchoredPosition = direction * _radius;
+    }
+
+    public void Init(float angle, float radius, float normalizedInitZoom)
     {
         _angle = angle;
         _radius = radius;
         _startAngle = (180f - angle) * 0.5f;
-        var direction = Quaternion.AngleAxis(_startAngle, Vector3.back) * Vector2.up; 
-        RectTransform.anchoredPosition = direction * radius;
+        SetPositionByZoom(normalizedInitZoom);
     }
 }
