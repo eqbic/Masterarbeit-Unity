@@ -1,45 +1,93 @@
 ﻿using System;
 using System.IO;
+using System.Xml.Linq;
+using TouchScript.Gestures;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GpxRecorder : MonoBehaviour
 {
     [SerializeField] private bool _record;
     [SerializeField] private FocusView _focusView;
+    [SerializeField] private LongPressGesture _gesture;
+    [SerializeField] private Image _recordSign;
 
     private bool _lastFrameRecord = false;
 
     private OnlineMapsGPXObject _gpxTrack;
-    private int _currentTrackIndex = 0;
+    private OnlineMapsGPXObject.Meta _metaData;
+    private string _savePath;
 
     private void Awake()
     {
-        var name = Guid.NewGuid().ToString();
-        _gpxTrack = new OnlineMapsGPXObject(name);
-        OnlineMapsGPXObject.Meta meta = _gpxTrack.metadata = new OnlineMapsGPXObject.Meta();
-        meta.author = new OnlineMapsGPXObject.Person
+        _metaData =  new OnlineMapsGPXObject.Meta
         {
-            email = new OnlineMapsGPXObject.EMail("support", "infinity-code.com"),
-            name = name
+            author = new OnlineMapsGPXObject.Person
+            {
+                email = new OnlineMapsGPXObject.EMail("support", "infinity-code.com"),
+            }
         };
         var bounds = ContextView.ContextBounds;
-        meta.bounds = new OnlineMapsGPXObject.Bounds(bounds.left, bounds.bottom, bounds.right, bounds.top);
+        _metaData.bounds = new OnlineMapsGPXObject.Bounds(bounds.left, bounds.bottom, bounds.right, bounds.top);
 
         // Creates a copyright
-        meta.copyright = new OnlineMapsGPXObject.Copyright("Infinity Code")
+        _metaData.copyright = new OnlineMapsGPXObject.Copyright("Infinity Code")
         {
             year = 2016
         };
+        
+        _savePath = Path.Combine(Application.dataPath, "Data");
+        if (!Directory.Exists(_savePath))
+        {
+            Directory.CreateDirectory(_savePath);
+        }
     }
 
     private void OnEnable()
     {
         _focusView.OnLoaded += Register;
+        _gesture.LongPressed += ToggleRecord;
     }
 
     private void OnDisable()
     {
         _focusView.OnLoaded -= Register;
+        _gesture.LongPressed -= ToggleRecord;
+    }
+
+    private void ToggleRecord(object sender, EventArgs e)
+    {
+        _record = !_record;
+        _recordSign.enabled = _record;
+
+        if (_record)
+        {
+            StartRecord();
+        }
+        else
+        {
+            StopRecord();
+        }
+    }
+
+
+    private void StartRecord()
+    {
+        var trackName = $"{_focusView.FocusMapControl.InputTypeCode}_{DateTime.Now:yy-MM-dd-HH-mm-ss}";
+        _metaData.author.name = trackName;
+        _gpxTrack = new OnlineMapsGPXObject(trackName)
+        {
+            metadata = _metaData
+        };
+        _gpxTrack.tracks.Add(new OnlineMapsGPXObject.Track());
+        _gpxTrack.tracks[0].segments.Add(new OnlineMapsGPXObject.TrackSegment());
+    }
+    
+    private void StopRecord()
+    {
+        var gpxString = _gpxTrack.ToXML();
+        var doc = XDocument.Parse(gpxString.outerXml);
+        File.WriteAllText(Path.Combine(_savePath, _gpxTrack.metadata.author.name + ".gpx"), doc.ToString());
     }
 
     private void Register(OnlineMaps obj)
@@ -48,35 +96,14 @@ public class GpxRecorder : MonoBehaviour
         _focusView.ViewFinderChannel.OnChange += Record;
     }
 
-    private void Update()
-    {
-        if (_lastFrameRecord == false && _record == true)
-        {
-            // start record
-            _gpxTrack.tracks.Add(new OnlineMapsGPXObject.Track());
-            _currentTrackIndex = _gpxTrack.tracks.Count - 1;
-            _gpxTrack.tracks[_currentTrackIndex].segments.Add(new OnlineMapsGPXObject.TrackSegment());
-        }
-
-        _lastFrameRecord = _record;
-    }
-
-    private void OnApplicationQuit()
-    {
-        var gpxString = _gpxTrack.ToXML();
-        var path = Path.Combine(Application.dataPath, "Data");
-        if (!Directory.Exists(path))
-        {
-            Directory.CreateDirectory(path);
-        }
-        // File.WriteAllText(Path.Combine(path, _gpxTrack.metadata.author.name + ".gpx"), gpxString.outerXml);
-    }
-
     private void Record(GeoCoord geoCoord)
     {
         if (!_record || _gpxTrack == null) return;
-        var waypoint = new OnlineMapsGPXObject.Waypoint(geoCoord.Longitude, geoCoord.Latitude);
-        _gpxTrack.tracks[_currentTrackIndex].segments[0].points.Add(waypoint);
+        var waypoint = new OnlineMapsGPXObject.Waypoint(geoCoord.Longitude, geoCoord.Latitude)
+        {
+            time = DateTime.Now
+        };
+        _gpxTrack.tracks[0].segments[0].points.Add(waypoint);
     }
 
     

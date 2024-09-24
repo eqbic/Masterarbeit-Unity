@@ -31,6 +31,11 @@ public class FocusMapControlTouch : FocusMapControlBase
             CreateJoystick();
     }
 
+    private void Start()
+    {
+        InputTypeCode = $"Touch_{_controlType.ToString()}";
+    }
+
     private void CreateJoystick()
     {
         _joystick = Instantiate(_joystickPrefab, transform.parent.parent);

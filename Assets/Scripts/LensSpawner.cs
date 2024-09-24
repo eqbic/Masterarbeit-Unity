@@ -67,6 +67,14 @@ public class LensSpawner : MonoBehaviour
             focusView.InitJoystick(joystick);
         }
     }
+    
+    public void AddZoomToken(uint focusId, Tuio20Object zoom)
+    {
+        if (_focusViews.TryGetValue(focusId, out var focusView))
+        {
+            focusView.InitZoomToken(zoom);
+        }
+    }
 
     public void DestroyFocusView(uint id)
     {
@@ -83,36 +91,44 @@ public class LensSpawner : MonoBehaviour
             focusView.RemoveJoystick();
         }
     }
-
-    public void AddPanX(uint focusId, Tuio20Object panX)
-    {
-        if (_focusViews.TryGetValue(focusId, out var focusView))
-        {
-            focusView.AddPanX(panX);
-        }
-    }
     
-    public void RemovePanX(uint focusId)
+    public void RemoveZoomToken(uint focusId)
     {
         if (_focusViews.TryGetValue(focusId, out var focusView))
         {
-            focusView.RemovePanX();
-        }
-    }
-    
-    public void RemovePanY(uint focusId)
-    {
-        if (_focusViews.TryGetValue(focusId, out var focusView))
-        {
-            focusView.RemovePanY();
+            focusView.RemoveZoomToken();
         }
     }
 
-    public void AddPanY(uint focusId, Tuio20Object panY)
-    {
-        if (_focusViews.TryGetValue(focusId, out var focusView))
-        {
-            focusView.AddPanY(panY);
-        }
-    }
+    // public void AddPanX(uint focusId, Tuio20Object panX)
+    // {
+    //     if (_focusViews.TryGetValue(focusId, out var focusView))
+    //     {
+    //         focusView.AddPanX(panX);
+    //     }
+    // }
+    //
+    // public void RemovePanX(uint focusId)
+    // {
+    //     if (_focusViews.TryGetValue(focusId, out var focusView))
+    //     {
+    //         focusView.RemovePanX();
+    //     }
+    // }
+    //
+    // public void RemovePanY(uint focusId)
+    // {
+    //     if (_focusViews.TryGetValue(focusId, out var focusView))
+    //     {
+    //         focusView.RemovePanY();
+    //     }
+    // }
+    //
+    // public void AddPanY(uint focusId, Tuio20Object panY)
+    // {
+    //     if (_focusViews.TryGetValue(focusId, out var focusView))
+    //     {
+    //         focusView.AddPanY(panY);
+    //     }
+    // }
 }

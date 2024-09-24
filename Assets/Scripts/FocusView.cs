@@ -3,8 +3,6 @@ using TuioNet.Tuio20;
 using TuioUnity.Tuio20;
 using UI;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 public class FocusView : ViewBase
 {
@@ -27,6 +25,8 @@ public class FocusView : ViewBase
 
     private RectTransform _rect;
     private RectTransform _mapRect;
+
+    public FocusMapControlBase FocusMapControl => _focusMapControl;
 
     private void RegisterControls()
     {
@@ -95,6 +95,11 @@ public class FocusView : ViewBase
         ((FocusMapControlTui)_focusMapControl).AddJoystick(joystick);
     }
 
+    public void InitZoomToken(Tuio20Object zoom)
+    {
+        ((FocusMapControlTui)_focusMapControl).AddZoomToken(zoom);
+    }
+
     private void OnDestroy()
     {
         _viewFinderChannel.OnChange -= UpdateCoordinate;
@@ -127,25 +132,30 @@ public class FocusView : ViewBase
     {
         ((FocusMapControlTui)_focusMapControl).RemoveJoystick();
     }
-
-    public void AddPanX(Tuio20Object panX)
-    {
-        ((FocusMapControlTui)_focusMapControl).AddPanX(panX);
-    }
-
-    public void RemovePanX()
-    {
-        ((FocusMapControlTui)_focusMapControl).RemovePanX();
-    }
     
-    public void RemovePanY()
+    public void RemoveZoomToken()
     {
-        ((FocusMapControlTui)_focusMapControl).RemovePanY();
+        ((FocusMapControlTui)_focusMapControl).RemoveZoomToken();
     }
-    
-    public void AddPanY(Tuio20Object panY)
-    {
-        ((FocusMapControlTui)_focusMapControl).AddPanY(panY);
-    }
+
+    // public void AddPanX(Tuio20Object panX)
+    // {
+    //     ((FocusMapControlTui)_focusMapControl).AddPanX(panX);
+    // }
+    //
+    // public void RemovePanX()
+    // {
+    //     ((FocusMapControlTui)_focusMapControl).RemovePanX();
+    // }
+    //
+    // public void RemovePanY()
+    // {
+    //     ((FocusMapControlTui)_focusMapControl).RemovePanY();
+    // }
+    //
+    // public void AddPanY(Tuio20Object panY)
+    // {
+    //     ((FocusMapControlTui)_focusMapControl).AddPanY(panY);
+    // }
 
 }

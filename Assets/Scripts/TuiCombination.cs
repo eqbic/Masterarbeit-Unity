@@ -9,6 +9,7 @@ public class TuiCombination : ScriptableObject
     [field: SerializeField] public uint MagnifyId { get; set; }
     [field: SerializeField] public uint ViewFinderId { get; set; }
     [field: SerializeField] public uint JoystickId { get; set; }
+    [field: SerializeField] public uint ZoomTokenId { get; set; }
     [field: SerializeField] public uint PanXId { get; set; }
     [field: SerializeField] public uint PanYId { get; set; }
 
@@ -21,6 +22,7 @@ public class TuiCombination : ScriptableObject
         Ids.Add(JoystickId);
         Ids.Add(PanXId);
         Ids.Add(PanYId);
+        Ids.Add(ZoomTokenId);
     }
 
     public Tuio20Object Magnify { get; set; } = null;
@@ -28,4 +30,5 @@ public class TuiCombination : ScriptableObject
     public Tuio20Object Joystick { get; set; } = null;
     public Tuio20Object PanX { get; set; } = null;
     public Tuio20Object PanY { get; set; } = null;
+    public Tuio20Object ZoomToken { get; set; } = null;
 }

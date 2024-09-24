@@ -4,7 +4,16 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform))]
 public class PhysicalSize : MonoBehaviour
 {
-    [SerializeField] private Vector2 _sizeInMm;
+    [SerializeField] private Vector2 _sizeInMM;
+    public Vector2 SizeInMm
+    {
+        get => _sizeInMM;
+        set
+        {
+            _sizeInMM = value;
+            SetSize(_sizeInMM);
+        }
+    }
 
     private RectTransform _rectTransform;
 
@@ -17,7 +26,12 @@ public class PhysicalSize : MonoBehaviour
 
     private void Start()
     {
-        var sizeInPixel = DisplayManager.Instance.GetPixelSize(_sizeInMm);
+        SetSize(SizeInMm);
+    }
+
+    private void SetSize(Vector2 sizeInMM)
+    {
+        var sizeInPixel = DisplayManager.Instance.GetPixelSize(sizeInMM);
         _rectTransform.sizeDelta = sizeInPixel;
         OnSizeSet?.Invoke(sizeInPixel);
     }

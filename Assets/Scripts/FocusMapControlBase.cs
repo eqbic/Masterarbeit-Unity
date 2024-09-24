@@ -8,6 +8,8 @@ public abstract class FocusMapControlBase : MonoBehaviour
     public event Action<float> OnRotate;
     public event Action OnResetView;
     
+    public string InputTypeCode { get; protected set; }
+    
     protected void ResetView()
     {
         OnResetView?.Invoke();

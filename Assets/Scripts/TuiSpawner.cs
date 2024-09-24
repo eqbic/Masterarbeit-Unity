@@ -60,18 +60,24 @@ public class TuiSpawner : MonoBehaviour
             combo.Joystick = tuioObject;
             _lensSpawner.AddJoystick(combo.MagnifyId, tuioObject);
         }
-
-        if (id == combo.PanXId)
+        
+        if (id == combo.ZoomTokenId)
         {
-            combo.PanX = tuioObject;
-            _lensSpawner.AddPanX(combo.MagnifyId, tuioObject);
+            combo.ZoomToken = tuioObject;
+            _lensSpawner.AddZoomToken(combo.MagnifyId, tuioObject);
         }
 
-        if (id == combo.PanYId)
-        {
-            combo.PanY = tuioObject;
-            _lensSpawner.AddPanY(combo.MagnifyId, tuioObject);
-        }
+        // if (id == combo.PanXId)
+        // {
+        //     combo.PanX = tuioObject;
+        //     _lensSpawner.AddPanX(combo.MagnifyId, tuioObject);
+        // }
+        //
+        // if (id == combo.PanYId)
+        // {
+        //     combo.PanY = tuioObject;
+        //     _lensSpawner.AddPanY(combo.MagnifyId, tuioObject);
+        // }
     }
 
     private void DestroyLens(object sender, Tuio20Object tuioObject)
@@ -101,17 +107,23 @@ public class TuiSpawner : MonoBehaviour
             _lensSpawner.RemoveJoystick(combo.MagnifyId);
         }
         
-        if (id == combo.PanXId)
+        if (id == combo.ZoomTokenId)
         {
-            combo.PanX = null;
-            _lensSpawner.RemovePanX(combo.MagnifyId);
+            combo.ZoomToken = null;
+            _lensSpawner.RemoveZoomToken(combo.MagnifyId);
         }
-
-        if (id == combo.PanYId)
-        {
-            combo.PanY = null;
-            _lensSpawner.RemovePanY(combo.MagnifyId);
-        }
+        
+        // if (id == combo.PanXId)
+        // {
+        //     combo.PanX = null;
+        //     _lensSpawner.RemovePanX(combo.MagnifyId);
+        // }
+        //
+        // if (id == combo.PanYId)
+        // {
+        //     combo.PanY = null;
+        //     _lensSpawner.RemovePanY(combo.MagnifyId);
+        // }
         
     }
 }
