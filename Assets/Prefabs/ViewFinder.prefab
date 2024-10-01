@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 89ba3c67a26f56e4088f340fd920ca36, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -88,9 +88,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12185efc4cfed8c42b25884e9984a256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _physicalSize: {fileID: 4466309412283456034}
-  _shader: {fileID: -6465566751694194690, guid: 9ab47a41301246f46a27e44aec652295, type: 3}
-  _outlineThicknessMM: 3
 --- !u!1 &6538803599847649538
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,15 +150,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 5c33100645ea9f74fb6038f099e6e19d, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.9019608}
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 89ba3c67a26f56e4088f340fd920ca36, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -312,9 +309,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12185efc4cfed8c42b25884e9984a256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _physicalSize: {fileID: 5479388712972090326}
-  _shader: {fileID: -6465566751694194690, guid: 9ab47a41301246f46a27e44aec652295, type: 3}
-  _outlineThicknessMM: 2
 --- !u!114 &5479388712972090326
 MonoBehaviour:
   m_ObjectHideFlags: 0

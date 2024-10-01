@@ -77,6 +77,7 @@ public class FocusView : ViewBase
     public void InitTouch()
     {
         _focusMapControl = Instantiate(_touchControl, transform);
+        _focusMapControl.transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
         RegisterControls();
         Destroy(_tokenTransform);
     }
@@ -85,6 +86,7 @@ public class FocusView : ViewBase
     {
         Destroy(_touchDrag);
         _focusMapControl = Instantiate(_tuiControl, transform);
+        _focusMapControl.transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
         ((FocusMapControlTui)_focusMapControl).Init(tuioObject);
         RegisterControls();
         _tokenTransform.Initialize(tuioObject, RenderMode.ScreenSpaceCamera);

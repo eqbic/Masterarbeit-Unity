@@ -109,8 +109,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   numberOfTapsRequired: 2
-  timeLimit: 0.5
-  distanceLimit: 0.5
+  timeLimit: 1
+  distanceLimit: 1
   combinePointers: 0
   combinePointersInterval: 0.3
 --- !u!114 &5665900382725058200

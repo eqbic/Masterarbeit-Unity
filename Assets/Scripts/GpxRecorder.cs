@@ -36,7 +36,7 @@ public class GpxRecorder : MonoBehaviour
             year = 2016
         };
         
-        _savePath = Path.Combine(Application.dataPath, "Data");
+        _savePath = Path.Combine(Application.dataPath, "GPX");
         if (!Directory.Exists(_savePath))
         {
             Directory.CreateDirectory(_savePath);

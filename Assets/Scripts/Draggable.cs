@@ -23,7 +23,6 @@ public class Draggable : MonoBehaviour
 
     private void Awake()
     {
-        _gesture = GetComponent<ScreenTransformGesture>();
         _rect = GetComponent<RectTransform>();
     }
 

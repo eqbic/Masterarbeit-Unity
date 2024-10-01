@@ -69,8 +69,8 @@ MonoBehaviour:
   generalProps: 0
   limitsProps: 0
   advancedProps: 0
-  minPointers: 2
-  maxPointers: 2
+  minPointers: 1
+  maxPointers: 1
   useSendMessage: 0
   sendStateChangeMessages: 0
   sendMessageTarget: {fileID: 0}
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367463e547594d4497d45807a5c6f850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controlType: 1
+  _controlType: 0
   _zoomGesture: {fileID: 4026009377715820588}
   _panGesture: {fileID: 6003771001453051423}
   _rotateGesture: {fileID: 5081965156218227276}

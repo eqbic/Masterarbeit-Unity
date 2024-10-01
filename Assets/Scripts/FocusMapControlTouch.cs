@@ -134,7 +134,9 @@ public class FocusMapControlTouch : FocusMapControlBase
 
     private void OnDestroy()
     {
-        Destroy(_joystick.gameObject);
-        Destroy(_zoomSlider.gameObject);
+        if(_joystick != null)
+            Destroy(_joystick.gameObject);
+        if(_zoomSlider != null)
+            Destroy(_zoomSlider.gameObject);
     }
 }
