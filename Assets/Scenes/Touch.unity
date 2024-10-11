@@ -880,6 +880,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TouchSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 8075337102382955010, guid: 8060cb62958d7364eb5f3903515bf10a, type: 3}
+      propertyPath: maxPointers
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075337102382955010, guid: 8060cb62958d7364eb5f3903515bf10a, type: 3}
+      propertyPath: minPointers
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
