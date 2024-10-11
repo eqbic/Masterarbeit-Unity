@@ -14,6 +14,7 @@ namespace UI
         private OnlineMapsGeoRect _bounds;
 
         public OnlineMaps Map => _map;
+        private GeoCoord _currentCoords;
         
         private void Awake()
         {
@@ -24,12 +25,14 @@ namespace UI
         public void Init(GeoCoord initialCoords)
         {
             _map.SetPositionAndZoom(initialCoords.Longitude, initialCoords.Latitude, _defaultZoom);
+            _currentCoords = initialCoords;
             _bounds = ContextView.ContextBounds;
         }
 
         public void ResetView(GeoCoord coord)
         {
             _map.SetPositionAndZoom(coord.Longitude, coord.Latitude, _defaultZoom);
+            _currentCoords = coord;
         }
         
         public GeoCoord Move(Vector2 delta)
@@ -37,9 +40,9 @@ namespace UI
             _map.GetPosition(out var lng, out var lat);
             var screenPosition = _map.control.GetScreenPosition(lng, lat);
             screenPosition -= delta;
-            _map.control.GetCoords(screenPosition, out lng, out lat);
             lng = Math.Clamp(lng, _bounds.left, _bounds.right);
             lat = Math.Clamp(lat, _bounds.bottom, _bounds.top);
+            _map.control.GetCoords(screenPosition, out lng, out lat);
             _map.SetPosition(lng, lat);
             return new GeoCoord(lng, lat);
         }

@@ -7,7 +7,7 @@ public class OffsetMarker : MonoBehaviour
     private RectTransform _rectTransform;
     private RectTransform _parentTransform;
 
-    private GeoCoordChannel _focusViewChannel;
+    public GeoCoordChannel FocusViewChannel { get; private set; }
     private OnlineMaps _contextViewMap;
 
     private void Awake()
@@ -17,11 +17,11 @@ public class OffsetMarker : MonoBehaviour
 
     public void Init(GeoCoordChannel focusViewChannel, OnlineMaps contextViewMap)
     {
-        _focusViewChannel = focusViewChannel;
+        FocusViewChannel = focusViewChannel;
         _contextViewMap = contextViewMap;
         _parentTransform = transform.parent.GetComponent<RectTransform>();
         
-        _focusViewChannel.OnChange += UpdateOffset;
+        FocusViewChannel.OnChange += UpdateOffset;
     }
     
     private void UpdateOffset(GeoCoord geoCoord)

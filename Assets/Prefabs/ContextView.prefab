@@ -231,6 +231,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gpxData:
   - {fileID: 8797908669173068190, guid: edbd712434bf0824f9a2b4ffde9fe5ba, type: 3}
-  - {fileID: 4166053052215877881, guid: e0446d218e954ed4f8753128d05bb09c, type: 3}
   _view: {fileID: 550532493699095041}
   _drawWidth: 2

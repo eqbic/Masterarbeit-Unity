@@ -16,6 +16,8 @@ public class FocusView : ViewBase
 
     [SerializeField] private FocusMapControlTouch _touchControl;
     [SerializeField] private FocusMapControlTui _tuiControl;
+
+    [SerializeField] private RecordActivator _recordActivator;
     
     private GeoCoordChannel _viewFinderChannel;
     private GeoCoordChannel _focusViewChannel;
@@ -72,6 +74,8 @@ public class FocusView : ViewBase
         _viewFinderChannel.OnChange += UpdateCoordinate;
         _connectionUI.Init(viewFinder.OffsetMarker, viewFinder.Color);
         Loaded(_focusMapUI.Map);
+        
+        _recordActivator.Init(_focusViewChannel);
     }
 
     public void InitTouch()

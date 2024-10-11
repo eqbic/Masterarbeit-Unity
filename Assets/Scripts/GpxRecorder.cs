@@ -1,18 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Linq;
-using TouchScript.Gestures;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GpxRecorder : MonoBehaviour
 {
     [SerializeField] private bool _record;
     [SerializeField] private FocusView _focusView;
-    [SerializeField] private LongPressGesture _gesture;
-    [SerializeField] private Image _recordSign;
-
-    private bool _lastFrameRecord = false;
 
     private OnlineMapsGPXObject _gpxTrack;
     private OnlineMapsGPXObject.Meta _metaData;
@@ -46,33 +40,16 @@ public class GpxRecorder : MonoBehaviour
     private void OnEnable()
     {
         _focusView.OnLoaded += Register;
-        _gesture.LongPressed += ToggleRecord;
     }
 
     private void OnDisable()
     {
         _focusView.OnLoaded -= Register;
-        _gesture.LongPressed -= ToggleRecord;
     }
 
-    private void ToggleRecord(object sender, EventArgs e)
+    public void StartRecord()
     {
-        _record = !_record;
-        _recordSign.enabled = _record;
-
-        if (_record)
-        {
-            StartRecord();
-        }
-        else
-        {
-            StopRecord();
-        }
-    }
-
-
-    private void StartRecord()
-    {
+        _record = true;
         var trackName = $"{_focusView.FocusMapControl.InputTypeCode}_{DateTime.Now:yy-MM-dd-HH-mm-ss}";
         _metaData.author.name = trackName;
         _gpxTrack = new OnlineMapsGPXObject(trackName)
@@ -83,8 +60,9 @@ public class GpxRecorder : MonoBehaviour
         _gpxTrack.tracks[0].segments.Add(new OnlineMapsGPXObject.TrackSegment());
     }
     
-    private void StopRecord()
+    public void StopRecord()
     {
+        _record = false;
         var gpxString = _gpxTrack.ToXML();
         var doc = XDocument.Parse(gpxString.outerXml);
         File.WriteAllText(Path.Combine(_savePath, _gpxTrack.metadata.author.name + ".gpx"), doc.ToString());
