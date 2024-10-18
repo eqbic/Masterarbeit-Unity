@@ -45,5 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gpxTracks:
-  - {fileID: 8797908669173068190, guid: edbd712434bf0824f9a2b4ffde9fe5ba, type: 3}
-  - {fileID: -8535756097601429491, guid: 1d207c0d90082ba4e873e1c5b16cf44d, type: 3}
+  - {fileID: -1014810569682694295, guid: 98460ca063f28eb4783225fe89e1d40f, type: 3}
+  - {fileID: 2552655189641424799, guid: 446faffaf63b10747924ce216212eeae, type: 3}
+  - {fileID: 5548245123597398469, guid: 6e6310e615817b04f936fba362bf9be0, type: 3}
+  _zoneRadiusInMeter: 15

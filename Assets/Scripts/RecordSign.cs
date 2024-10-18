@@ -15,6 +15,8 @@ public class RecordSign : MonoBehaviour
     private static readonly int Width = Shader.PropertyToID("_Width");
     private static readonly int Rotation = Shader.PropertyToID("_Rotation");
 
+    private Color _imageColor;
+
     public float Progress
     {
         get => _progress;
@@ -22,6 +24,8 @@ public class RecordSign : MonoBehaviour
         {
             _progress = value;
             _material.SetFloat(ProgressID, _progress);
+            _imageColor.a = _progress < 1f ? 0.5f : 1f;
+            _image.color = _imageColor;
         }
     }
 
@@ -31,5 +35,6 @@ public class RecordSign : MonoBehaviour
         _material.SetFloat(Width, _width);
         _material.SetFloat(Rotation, _rotation);
         _image.material = _material;
+        _imageColor = _image.color;
     }
 }

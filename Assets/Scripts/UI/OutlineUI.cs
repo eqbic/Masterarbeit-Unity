@@ -6,12 +6,13 @@ using Random = UnityEngine.Random;
 
 namespace UI
 {
-    [RequireComponent(typeof(MaskableGraphic))]
+    [RequireComponent(typeof(Image))]
     public class OutlineUI : MonoBehaviour
     {
-        
-        private MaskableGraphic _graphic;
+        [SerializeField] private Sprite _spritePrefab;
+        private Image _image;
         private RectTransform _rectTransform;
+        private Sprite _sprite;
         public Color Color { get; private set; }
 
         public RectTransform RectTransform
@@ -29,19 +30,26 @@ namespace UI
         private void Awake()
         {
             RectTransform = GetComponent<RectTransform>();
-            _graphic = GetComponent<MaskableGraphic>();
+            _image = GetComponent<Image>();
+            _sprite = Instantiate(_spritePrefab);
+            _image.sprite = _sprite;
+        }
+
+        private void Start()
+        {
+            _rectTransform.SetAsLastSibling();
         }
 
         public void Init()
         {
             Color = Random.ColorHSV(0f, 1f, 0.5f, 0.7f, 1f, 1f);
-            SetupMaterial(_graphic, Color);
+            SetupMaterial(_image, Color);
         }
 
         public void Init(Color color)
         {
             Color = color;
-            SetupMaterial(_graphic, Color);
+            SetupMaterial(_image, Color);
         }
 
         private void SetupMaterial(MaskableGraphic graphic, Color color)

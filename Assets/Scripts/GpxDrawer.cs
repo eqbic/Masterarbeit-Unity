@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GpxDrawer : MonoBehaviour
@@ -57,10 +56,14 @@ public class GpxDrawer : MonoBehaviour
         var startPoint = new OnlineMapsVector2d(start.lon, start.lat);
         var last = points.Last();
         var lastPoint = new OnlineMapsVector2d(last.lon, last.lat);
-        var startColor = _startColor.WithAlpha(0.2f);
-        var startRimColor = _startColor.WithAlpha(1f);
-        var endColor = _endColor.WithAlpha(0.2f);
-        var endRimColor = _endColor.WithAlpha(1f);
+        var startColor = _startColor;
+        startColor.a = 0.2f;
+        var startRimColor = _startColor;
+        startRimColor.a = 1f;
+        var endColor = _endColor;
+        endColor.a = 0.2f;
+        var endRimColor = _endColor;
+        endRimColor.a = 1f;
         var startZone = new OnlineMapsDrawingPoly(GetCirclePolygon(startPoint,_elementManager.map, _radius, 50), startRimColor, 5f, startColor);
         var endZone = new OnlineMapsDrawingPoly(GetCirclePolygon(lastPoint,_elementManager.map, _radius, 50), endRimColor, 5f, endColor);
         _elementManager.Add(startZone);
@@ -100,9 +103,10 @@ public class GpxDrawer : MonoBehaviour
             points = gpxObject.waypoints;
         }
 
-        var lineColor = _trackColor.WithAlpha(1f);
+        var lineColor = _trackColor;
+        lineColor.a = 1f;
         var p = points.Select(w => new OnlineMapsVector2d(w.lon, w.lat));
-        var width = 20 * _elementManager.map.floatZoom * 0.1f;
+        var width = _drawWidth * _elementManager.map.floatZoom * 0.1f;
         var line = new OnlineMapsDrawingLine(p, lineColor, width);
         _elementManager.Add(line);
     }

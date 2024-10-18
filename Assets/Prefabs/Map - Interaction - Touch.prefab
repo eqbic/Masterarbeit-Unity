@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2156396245841871803}
   - component: {fileID: 3521574954124074985}
   - component: {fileID: 1088979408838615214}
+  - component: {fileID: 610597070631585638}
   m_Layer: 5
   m_Name: Map - Interaction - Touch
   m_TagString: Untagged
@@ -224,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367463e547594d4497d45807a5c6f850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controlType: 1
+  _controlType: 0
   _zoomGesture: {fileID: 4026009377715820588}
   _panGesture: {fileID: 6003771001453051423}
   _rotateGesture: {fileID: 5081965156218227276}
@@ -252,7 +253,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: a3d788e5ffb7ced49b7a7e300d26508b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -262,3 +263,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &610597070631585638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2973381064451891899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22757922dd9d4064d8186fbef72b0772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

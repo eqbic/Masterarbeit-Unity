@@ -11,6 +11,7 @@ public class Draggable : MonoBehaviour
         get => _gesture;
         set
         {
+            print($"Set gesture on {gameObject.name}");
             _gesture = value;
             _gesture.Transformed -= Move;
             _gesture.Transformed += Move;
@@ -38,6 +39,7 @@ public class Draggable : MonoBehaviour
 
     private void Move(object sender, EventArgs e)
     {
+        print(gameObject.name);
         Vector2 delta = new Vector2(_gesture.DeltaPosition.x, _gesture.DeltaPosition.y);
         _rect.anchoredPosition += delta;
         OnDrag?.Invoke(_rect.anchoredPosition);

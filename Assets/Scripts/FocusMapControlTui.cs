@@ -35,6 +35,7 @@ public class FocusMapControlTui : FocusMapControlBase
 
     private TuiJoystickDeadzone _deadzone;
     private float _deadZoneRadiusPixel;
+    private float _shapeDiameterMM = 74f;
 
     public void Init(Tuio20Object magnify)
     {
@@ -52,7 +53,7 @@ public class FocusMapControlTui : FocusMapControlBase
         _lastAngleZoom = _joystick.Angle;
         _deadzone = Instantiate(_deadzonePrefab, transform.parent.parent);
         _deadzone.Init(_joystickInitialPosition.ToUnity());
-        _deadZoneRadiusPixel = DisplayManager.Instance.GetPixelSize(_deadzone.Diameter * 0.5f);
+        _deadZoneRadiusPixel = DisplayManager.Instance.GetPixelSize((_deadzone.Diameter - _shapeDiameterMM) * 0.5f);
     }
 
     public void AddZoomToken(Tuio20Object zoom)
