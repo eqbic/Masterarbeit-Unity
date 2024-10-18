@@ -111,7 +111,9 @@ public class FocusMapControlTui : FocusMapControlBase
         var v = (_joystick.Position - _joystickInitialPosition).ToUnity();
         v.x *= Screen.width;
         v.y *= -Screen.height;
-        var speed = v.magnitude - _deadZoneRadiusPixel;
+        var distance = Mathf.Max(v.magnitude - _deadZoneRadiusPixel, 0f);
+        var speed = 600f * Mathf.Log(0.015f * distance + 1f);
+        print($"distance: {distance} -> speed: {speed}");
         if (speed > 0f)
         {
             Pan(v.normalized * (_directionFactor * (speed * 1f * Time.deltaTime)));
