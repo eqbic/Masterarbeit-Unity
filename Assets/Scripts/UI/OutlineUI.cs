@@ -42,7 +42,7 @@ namespace UI
 
         public void Init()
         {
-            Color = Random.ColorHSV(0f, 1f, 0.5f, 0.7f, 1f, 1f);
+            Color = Random.ColorHSV(0.15f, 0.75f, 0.5f, 0.7f, 1f, 1f);
             SetupMaterial(_image, Color);
         }
 
