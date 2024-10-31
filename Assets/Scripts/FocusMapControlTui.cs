@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class FocusMapControlTui : FocusMapControlBase
 {
+    [SerializeField] private TuiControl _tuiControl;
     [SerializeField] private bool _invertJoystick = true;
     [SerializeField] private TuiJoystickDeadzone _deadzonePrefab;
     private Tuio20Token _magnify;
