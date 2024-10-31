@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TuioNet.Tuio20;
 using TuioUnity.Utils;
 using UnityEngine;
 
 public class FocusMapControlTui : FocusMapControlBase
 {
-    [SerializeField] private TuiControl _tuiControl;
+    [SerializeField] private TuiControl _tuiControlType = TuiControl.Joystick;
     [SerializeField] private bool _invertJoystick = true;
     [SerializeField] private TuiJoystickDeadzone _deadzonePrefab;
     private Tuio20Token _magnify;
@@ -16,8 +17,8 @@ public class FocusMapControlTui : FocusMapControlBase
     // private Tuio20Token _panX;
     // private Tuio20Token _panY;
 
-    private readonly float _zoomSpeed = 2f;
-    private const float e = 2.71828f;
+    // private readonly float _zoomSpeed = 2f;
+    // private const float e = 2.71828f;
 
     private float _lastAngleRotation;
     private float _lastAngleZoom;
@@ -26,7 +27,6 @@ public class FocusMapControlTui : FocusMapControlBase
 
     private float _panInitialDistance;
 
-    private float _targetZoom;
 
     private float _directionFactor;
 
@@ -36,49 +36,49 @@ public class FocusMapControlTui : FocusMapControlBase
     private float _deadZoneRadiusPixel;
     private float _shapeDiameterMM = 74f;
 
-    public void Init(Tuio20Object magnify)
+    private TuiControlBase _tuiControl;
+
+    private void Awake()
     {
-        _magnify = magnify.Token;
-        _lastAngleRotation = _magnify.Angle;
-        _targetZoom = FocusView.CurrentZoom;
-        _directionFactor = _invertJoystick ? -1f : 1f;
-        InputTypeCode = $"TUI";
+        switch (_tuiControlType)
+        {
+            case TuiControl.Joystick:
+                _tuiControl = gameObject.AddComponent<JoystickControl>();
+                break;
+            case TuiControl.Car:
+                _tuiControl = gameObject.AddComponent<CarControl>();
+                break;
+        }
     }
 
+    public void Init(Tuio20Object magnify)
+    {
+        _tuiControl.Init(magnify, FocusView, Zoom, Rotate, Pan);
+        InputTypeCode = $"TUI";
+    }
+    
     public void AddJoystick(Tuio20Object joystick)
     {
-        _joystick = joystick.Token;
-        _joystickInitialPosition = _joystick.Position;
-        _lastAngleZoom = _joystick.Angle;
+        _tuiControl.AddJoystick(joystick);
         _deadzone = Instantiate(_deadzonePrefab, transform.parent.parent);
         _deadzone.Init(_joystickInitialPosition.ToUnity());
         _deadZoneRadiusPixel = DisplayManager.Instance.GetPixelSize((_deadzone.Diameter - _shapeDiameterMM) * 0.5f);
     }
 
-    public void AddZoomToken(Tuio20Object zoom)
+    public void AddZoomToken(Tuio20Object zoomToken)
     {
-        _zoomToken = zoom.Token;
-        _lastAngleZoom = _zoomToken.Angle;
+        _tuiControl.AddZoomToken(zoomToken);
     }
 
     public void RemoveJoystick()
     {
-        _joystick = null;
+       _tuiControl.RemoveJoystick();
         Destroy(_deadzone.gameObject);
     }
 
     public void RemoveZoomToken()
     {
-        if(_joystick != null)
-            _lastAngleZoom = _joystick.Angle;
-        _zoomToken = null;
-    }
-
-    private void Update()
-    {
-        UpdateZoom();
-        UpdateRotation();
-        UpdatePan();
+       _tuiControl.RemoveZoomToken();
     }
 
     private void UpdateRotation()
@@ -90,7 +90,7 @@ public class FocusMapControlTui : FocusMapControlBase
 
     private void UpdatePan()
     {
-        JoystickControl();
+        // JoystickControl();
         // PanControl();
     }
 
@@ -103,42 +103,42 @@ public class FocusMapControlTui : FocusMapControlBase
     //     Pan(direction);
     // }
 
-    private void JoystickControl()
-    {
-        if (_joystick == null) return;
-        
-        var v = (_joystick.Position - _joystickInitialPosition).ToUnity();
-        v.x *= Screen.width;
-        v.y *= -Screen.height;
-        var distance = Mathf.Max(v.magnitude - _deadZoneRadiusPixel, 0f);
-        // var speed = 600f * Mathf.Log(0.015f * distance + 1f);
-        var speed = 800f / (1 + Mathf.Pow(e, -0.04f * (distance - 120)));
-        // var speed = Mathf.Pow(5f / 100 * distance + 0.8f, 3) + 5f;
-        print($"distance: {distance} -> speed: {speed}");
-        if (distance > 0f)
-        {
-            Pan(v.normalized * (_directionFactor * (speed * 1f * Time.deltaTime)));
-        }
-    }
+    // private void JoystickControl()
+    // {
+    //     if (_joystick == null) return;
+    //     
+    //     var v = (_joystick.Position - _joystickInitialPosition).ToUnity();
+    //     v.x *= Screen.width;
+    //     v.y *= -Screen.height;
+    //     var distance = Mathf.Max(v.magnitude - _deadZoneRadiusPixel, 0f);
+    //     // var speed = 600f * Mathf.Log(0.015f * distance + 1f);
+    //     var speed = 800f / (1 + Mathf.Pow(e, -0.04f * (distance - 120)));
+    //     // var speed = Mathf.Pow(5f / 100 * distance + 0.8f, 3) + 5f;
+    //     print($"distance: {distance} -> speed: {speed}");
+    //     if (distance > 0f)
+    //     {
+    //         Pan(v.normalized * (_directionFactor * (speed * 1f * Time.deltaTime)));
+    //     }
+    // }
 
-    private void MagnifyZoom()
-    {
-        ZoomByAngle(_magnify.Angle);
-    }
+    // private void MagnifyZoom()
+    // {
+    //     ZoomByAngle(_magnify.Angle);
+    // }
 
-    private void ZoomByAngle(float angle)
-    {
-        var deltaAngle = DeltaAngle(angle, ref _lastAngleZoom);
-        if(Mathf.Abs(deltaAngle) < 0.015f) return;
-        var zoom = Mathf.Clamp(FocusView.CurrentZoom + (deltaAngle) * _zoomSpeed, FocusView.MinZoom, FocusView.MaxZoom);
-        Zoom(zoom);
-    }
+    // private void ZoomByAngle(float angle)
+    // {
+    //     var deltaAngle = DeltaAngle(angle, ref _lastAngleZoom);
+    //     if(Mathf.Abs(deltaAngle) < 0.015f) return;
+    //     var zoom = Mathf.Clamp(FocusView.CurrentZoom + (deltaAngle) * _zoomSpeed, FocusView.MinZoom, FocusView.MaxZoom);
+    //     Zoom(zoom);
+    // }
 
-    private void JoystickZoom()
-    {
-        if(_joystick == null) return;
-        ZoomByAngle(_joystick.Angle);
-    }
+    // private void JoystickZoom()
+    // {
+    //     if(_joystick == null) return;
+    //     ZoomByAngle(_joystick.Angle);
+    // }
 
     // private void PanZoom()
     // {
@@ -149,24 +149,24 @@ public class FocusMapControlTui : FocusMapControlBase
     //     Zoom(_zoom);
     // }
 
-    private void UpdateZoom()
-    {
-        // PanZoom();
-        if (_zoomToken == null)
-        {
-            JoystickZoom();
-        }
-        else
-        {
-            TokenZoom();
-        }
-        // MagnifyZoom();
-    }
-
-    private void TokenZoom()
-    {
-        ZoomByAngle(_zoomToken.Angle);
-    }
+    // private void UpdateZoom()
+    // {
+    //     // PanZoom();
+    //     if (_zoomToken == null)
+    //     {
+    //         JoystickZoom();
+    //     }
+    //     else
+    //     {
+    //         TokenZoom();
+    //     }
+    //     // MagnifyZoom();
+    // }
+    //
+    // private void TokenZoom()
+    // {
+    //     ZoomByAngle(_zoomToken.Angle);
+    // }
 
     // private IEnumerator AnimateZoom()
     // {

@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 53499441d4724a61af207698f06ceaf7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _deadzonePrefab: {fileID: 6351242189922168544, guid: 5679e21cbde4e904fba98f0b1654870a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
