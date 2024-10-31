@@ -11,6 +11,8 @@ public class JoystickControl : TuiControlBase
     private System.Numerics.Vector2 _joystickInitialPosition;
     private float _lastAngleZoom;
     private float _deadZoneRadiusPixel;
+    private TuiJoystickDeadzone _deadzone;
+    private float _shapeDiameterMM = 74f;
     private const float e = 2.71828f;
 
     public override void Init(Tuio20Object magnify, FocusView focusView, Action<float> zoom, Action<float> rotate, Action<Vector2> pan)
@@ -28,6 +30,13 @@ public class JoystickControl : TuiControlBase
         _lastAngleZoom = JoystickToken.Angle;
     }
 
+    public void SpawnDeadzone(TuiJoystickDeadzone deadzonePrefab)
+    {
+        _deadzone = Instantiate(deadzonePrefab, transform.parent.parent);
+        _deadzone.Init(_joystickInitialPosition.ToUnity());
+        _deadZoneRadiusPixel = DisplayManager.Instance.GetPixelSize((_deadzone.Diameter - _shapeDiameterMM) * 0.5f);
+    }
+
     public override void AddZoomToken(Tuio20Object zoomToken)
     {
         ZoomToken = zoomToken.Token;
@@ -37,6 +46,7 @@ public class JoystickControl : TuiControlBase
     public override void RemoveJoystick()
     {
         JoystickToken = null;
+        Destroy(_deadzone.gameObject);
     }
 
     public override void RemoveZoomToken()
@@ -81,7 +91,7 @@ public class JoystickControl : TuiControlBase
     protected override void UpdateRotation()
     {
         var deltaAngle = DeltaAngle(Magnify.Angle, ref _lastAngleRotation);
-        deltaAngle = -deltaAngle * 180f / Mathf.PI;
+        deltaAngle = -deltaAngle * Mathf.Rad2Deg;
         Rotate?.Invoke(deltaAngle);
     }
 
