@@ -71,7 +71,7 @@ public class GpxRecorder : MonoBehaviour
     private void Register(OnlineMaps obj)
     {
         _focusView.FocusViewChannel.OnChange += Record;
-        _focusView.ViewFinderChannel.OnChange += Record;
+        // _focusView.ViewFinderChannel.OnChange += Record;
     }
 
     private void Record(GeoCoord geoCoord)
@@ -79,7 +79,8 @@ public class GpxRecorder : MonoBehaviour
         if (!_record || _gpxTrack == null) return;
         var waypoint = new OnlineMapsGPXObject.Waypoint(geoCoord.Longitude, geoCoord.Latitude)
         {
-            time = DateTime.Now
+            time = DateTime.Now,
+            elevation = geoCoord.Elevation
         };
         _gpxTrack.tracks[0].segments[0].points.Add(waypoint);
     }

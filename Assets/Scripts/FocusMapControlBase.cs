@@ -7,8 +7,14 @@ public abstract class FocusMapControlBase : MonoBehaviour
     public event Action<Vector2> OnPan;
     public event Action<float> OnRotate;
     public event Action OnResetView;
-    
+
+    protected FocusView FocusView;
     public string InputTypeCode { get; protected set; }
+
+    public void Init(FocusView focusView)
+    {
+        FocusView = focusView;
+    }
     
     protected void ResetView()
     {

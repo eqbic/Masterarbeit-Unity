@@ -15,10 +15,7 @@ public class FocusMapControlTui : FocusMapControlBase
     // private Tuio20Token _panX;
     // private Tuio20Token _panY;
 
-    private float _zoom = 17f;
-    private float _zoomSpeed = 2f;
-    private float _minZoom = 8f;
-    private float _maxZoom = 21f;
+    private readonly float _zoomSpeed = 2f;
     private const float e = 2.71828f;
 
     private float _lastAngleRotation;
@@ -42,7 +39,7 @@ public class FocusMapControlTui : FocusMapControlBase
     {
         _magnify = magnify.Token;
         _lastAngleRotation = _magnify.Angle;
-        _targetZoom = _zoom;
+        _targetZoom = FocusView.CurrentZoom;
         _directionFactor = _invertJoystick ? -1f : 1f;
         InputTypeCode = $"TUI";
     }
@@ -132,8 +129,8 @@ public class FocusMapControlTui : FocusMapControlBase
     {
         var deltaAngle = DeltaAngle(angle, ref _lastAngleZoom);
         if(Mathf.Abs(deltaAngle) < 0.015f) return;
-        _zoom = Mathf.Clamp(_zoom + (deltaAngle) * _zoomSpeed, _minZoom, _maxZoom);
-        Zoom(_zoom);
+        var zoom = Mathf.Clamp(FocusView.CurrentZoom + (deltaAngle) * _zoomSpeed, FocusView.MinZoom, FocusView.MaxZoom);
+        Zoom(zoom);
     }
 
     private void JoystickZoom()

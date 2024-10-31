@@ -18,12 +18,12 @@ public class FocusMapControlTouch : FocusMapControlBase
 
     [SerializeField] private float _zoomSpeed = 2.0f;
     
-    private float _zoom = 17f;
+    // private float _zoom = 17f; 
     private Joystick _joystick;
     private ZoomSlider _zoomSlider;
 
-    private float _minZoom = 8f;
-    private float _maxZoom = 21f;
+    // private float _minZoom = 8f;
+    // private float _maxZoom = 21f;
 
     private void Awake()
     {
@@ -42,7 +42,7 @@ public class FocusMapControlTouch : FocusMapControlBase
         _joystick.Init(transform.parent as RectTransform);
 
         _zoomSlider = Instantiate(_zoomSliderPrefab, transform.parent.parent);
-        var normalizedZoom = _zoom.Remap(8, 21, 0, 1);
+        var normalizedZoom = FocusView.CurrentZoom.Remap(8, 21, 0, 1);
         _zoomSlider.Init(transform.parent as RectTransform, _joystick, normalizedZoom);
         _joystick.transform.SetAsLastSibling();
     }
@@ -79,14 +79,14 @@ public class FocusMapControlTouch : FocusMapControlBase
 
     private void SliderZoom(float normalizedZoom)
     {
-        var zoom = Mathf.Lerp(_minZoom, _maxZoom, normalizedZoom);
+        var zoom = Mathf.Lerp(FocusView.MinZoom, FocusView.MaxZoom, normalizedZoom);
         Zoom(zoom);
     }
 
     private void Zoom(object sender, EventArgs e)
     {
-        _zoom += (_zoomGesture.DeltaScale - 1f) * _zoomSpeed;
-        Zoom(_zoom);
+        var zoom = FocusView.CurrentZoom + (_zoomGesture.DeltaScale - 1f) * _zoomSpeed;
+        Zoom(zoom);
     }
 
     private void Pan(object sender, EventArgs e)

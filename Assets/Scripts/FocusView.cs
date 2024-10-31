@@ -28,6 +28,11 @@ public class FocusView : ViewBase
     private RectTransform _rect;
     private RectTransform _mapRect;
 
+    private float _defaultZoom = 17f;
+    public float CurrentZoom { get; private set; } = 17f;
+    public float MinZoom { get; } = 8f;
+    public float MaxZoom { get; } = 21f;
+
     public FocusMapControlBase FocusMapControl => _focusMapControl;
 
     private void RegisterControls()
@@ -68,6 +73,7 @@ public class FocusView : ViewBase
         _rect.anchoredPosition = position;
         
         var coords = _viewFinderChannel.Data;
+        coords.Elevation = CurrentZoom;
         _focusMapUI.Init(coords);
         _focusViewChannel.RaiseEvent(coords);
         
@@ -81,6 +87,7 @@ public class FocusView : ViewBase
     public void InitTouch()
     {
         _focusMapControl = Instantiate(_touchControl, transform);
+        _focusMapControl.Init(this);
         _focusMapControl.transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
         RegisterControls();
         Destroy(_tokenTransform);
@@ -90,6 +97,7 @@ public class FocusView : ViewBase
     {
         Destroy(_touchDrag);
         _focusMapControl = Instantiate(_tuiControl, transform);
+        _focusMapControl.Init(this);
         _focusMapControl.transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
         ((FocusMapControlTui)_focusMapControl).Init(tuioObject);
         RegisterControls();
@@ -120,16 +128,19 @@ public class FocusView : ViewBase
     private void UpdatePosition(Vector2 delta)
     {
         var coords = _focusMapUI.Move(delta);
+        coords.Elevation = CurrentZoom;
         _focusViewChannel.RaiseEvent(coords);
     }
 
     private void UpdateZoom(float zoom)
     {
+        CurrentZoom = zoom;
         _focusMapUI.UpdateZoom(zoom);
     }
 
     private void UpdateCoordinate(GeoCoord geoCoord)
     {
+        geoCoord.Elevation = CurrentZoom;
         _focusMapUI.UpdateCoords(geoCoord);
         _focusViewChannel.RaiseEvent(geoCoord);
     }
