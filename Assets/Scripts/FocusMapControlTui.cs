@@ -19,6 +19,7 @@ public class FocusMapControlTui : FocusMapControlBase
     private float _zoomSpeed = 2f;
     private float _minZoom = 8f;
     private float _maxZoom = 21f;
+    private const float e = 2.71828f;
 
     private float _lastAngleRotation;
     private float _lastAngleZoom;
@@ -112,9 +113,11 @@ public class FocusMapControlTui : FocusMapControlBase
         v.x *= Screen.width;
         v.y *= -Screen.height;
         var distance = Mathf.Max(v.magnitude - _deadZoneRadiusPixel, 0f);
-        var speed = 600f * Mathf.Log(0.015f * distance + 1f);
+        // var speed = 600f * Mathf.Log(0.015f * distance + 1f);
+        var speed = 800f / (1 + Mathf.Pow(e, -0.04f * (distance - 120)));
+        // var speed = Mathf.Pow(5f / 100 * distance + 0.8f, 3) + 5f;
         print($"distance: {distance} -> speed: {speed}");
-        if (speed > 0f)
+        if (distance > 0f)
         {
             Pan(v.normalized * (_directionFactor * (speed * 1f * Time.deltaTime)));
         }
