@@ -63,7 +63,6 @@ public class CarControl : TuiControlBase
         var deltaSpeed = DeltaAngle(JoystickToken.Angle, ref _lastAngleSpeed);
         _currentSpeed = Mathf.Clamp(_currentSpeed + deltaSpeed, 0f, _maxSpeed);
         var speed = Mathf.Pow(2f * _currentSpeed, 3);
-        print($"_currentSpeed: {_currentSpeed}, speed: {speed}");
         var direction = speed * Vector2.down;
         Pan?.Invoke(direction);
 
