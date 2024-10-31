@@ -16,5 +16,5 @@ MonoBehaviour:
   <ViewFinderId>k__BackingField: 8
   <JoystickId>k__BackingField: 14
   <ZoomTokenId>k__BackingField: 1
-  <PanXId>k__BackingField: 16
-  <PanYId>k__BackingField: 24
+  <SteerId>k__BackingField: 14
+  <GasId>k__BackingField: 1

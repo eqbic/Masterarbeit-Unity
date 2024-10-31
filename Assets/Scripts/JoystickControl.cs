@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class JoystickControl : TuiControlBase
 {
-    private bool _invertJoystick = true;
+    private const bool InvertJoystick = true;
     private float _lastAngleRotation;
     private float _directionFactor;
     private System.Numerics.Vector2 _joystickInitialPosition;
@@ -20,7 +20,7 @@ public class JoystickControl : TuiControlBase
         base.Init(magnify, focusView, zoom, rotate, pan);
         ZoomSpeed = 2f;
         _lastAngleRotation = Magnify.Angle;
-        _directionFactor = _invertJoystick ? -1f : 1f;
+        _directionFactor = InvertJoystick ? -1f : 1f;
     }
 
     public override void AddJoystick(Tuio20Object joystick)

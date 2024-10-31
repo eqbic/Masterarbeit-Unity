@@ -49,5 +49,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tuiControlType: 1
-  _invertJoystick: 1
   _deadzonePrefab: {fileID: 6351242189922168544, guid: 5679e21cbde4e904fba98f0b1654870a, type: 3}

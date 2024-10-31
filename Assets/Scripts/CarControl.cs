@@ -5,10 +5,11 @@ using UnityEngine;
 public class CarControl : TuiControlBase
 {
     private float _lastAngleRotation = 0f;
-    private float _lastAngleSpeed = 0f;
     private float _panInitialDistance;
-    private float _currentSpeed = 0f;
     private float _lastAngleZoom;
+    private float _lastAngleSpeed;
+    private float _currentSpeed;
+    private float _maxSpeed = 0.5f * Mathf.PI;
 
     public override void Init(Tuio20Object magnify, FocusView focusView, Action<float> zoom, Action<float> rotate, Action<Vector2> pan)
     {
@@ -22,8 +23,6 @@ public class CarControl : TuiControlBase
     {
         JoystickToken = joystick.Token;
         _lastAngleSpeed = JoystickToken.Angle;
-        if (ZoomToken == null) return;
-        _panInitialDistance = GetPanDistance();
     }
 
     // rotation object
@@ -31,13 +30,12 @@ public class CarControl : TuiControlBase
     {
         ZoomToken = zoomToken.Token;
         _lastAngleRotation = ZoomToken.Angle;
-        if (JoystickToken == null) return;
-        _panInitialDistance = GetPanDistance();
     }
 
     // speed object
     public override void RemoveJoystick()
     {
+        _currentSpeed = 0f;
         JoystickToken = null;
     }
     
@@ -63,8 +61,10 @@ public class CarControl : TuiControlBase
     {
         if (JoystickToken == null) return;
         var deltaSpeed = DeltaAngle(JoystickToken.Angle, ref _lastAngleSpeed);
-        _currentSpeed = Mathf.Max(_currentSpeed + deltaSpeed, 0f);
-        var direction = _currentSpeed * 10f * Vector2.down;
+        _currentSpeed = Mathf.Clamp(_currentSpeed + deltaSpeed, 0f, _maxSpeed);
+        var speed = Mathf.Pow(2f * _currentSpeed, 3);
+        print($"_currentSpeed: {_currentSpeed}, speed: {speed}");
+        var direction = speed * Vector2.down;
         Pan?.Invoke(direction);
 
     }

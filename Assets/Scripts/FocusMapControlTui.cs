@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
-using TuioNet.Tuio20;
-using TuioUnity.Utils;
+﻿using TuioNet.Tuio20;
 using UnityEngine;
 
 public class FocusMapControlTui : FocusMapControlBase
 {
     [SerializeField] private TuiControl _tuiControlType = TuiControl.Joystick;
-    [SerializeField] private bool _invertJoystick = true;
     [SerializeField] private TuiJoystickDeadzone _deadzonePrefab;
 
     private TuiControlBase _tuiControl;
@@ -63,22 +59,4 @@ public class FocusMapControlTui : FocusMapControlBase
     //     _panInitialDistance = currentDistance;
     //     Zoom(_zoom);
     // }
-
-    private float DeltaAngle(float currentAngle, ref float lastAngle)
-    {
-        var delta = currentAngle - lastAngle;
-        if (delta > Mathf.PI)
-        {
-            delta -= 2* Mathf.PI;
-        }
-
-        if (delta < -Mathf.PI)
-        {
-            delta += 2 * Mathf.PI;
-        }
-
-        lastAngle = currentAngle;
-        return delta;
-    }
-    
 }

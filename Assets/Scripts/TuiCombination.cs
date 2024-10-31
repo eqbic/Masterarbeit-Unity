@@ -10,8 +10,6 @@ public class TuiCombination : ScriptableObject
     [field: SerializeField] public uint ViewFinderId { get; set; }
     [field: SerializeField] public uint JoystickId { get; set; }
     [field: SerializeField] public uint ZoomTokenId { get; set; }
-    [field: SerializeField] public uint SteerId { get; set; }
-    [field: SerializeField] public uint GasId { get; set; }
 
     public HashSet<uint> Ids { get; private set; } = new();
 
@@ -20,15 +18,11 @@ public class TuiCombination : ScriptableObject
         Ids.Add(MagnifyId);
         Ids.Add(ViewFinderId);
         Ids.Add(JoystickId);
-        Ids.Add(SteerId);
-        Ids.Add(GasId);
         Ids.Add(ZoomTokenId);
     }
 
     public Tuio20Object Magnify { get; set; } = null;
     public Tuio20Object ViewFinder { get; set; } = null;
     public Tuio20Object Joystick { get; set; } = null;
-    public Tuio20Object Steer { get; set; } = null;
-    public Tuio20Object Gas { get; set; } = null;
     public Tuio20Object ZoomToken { get; set; } = null;
 }
