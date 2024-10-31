@@ -48,4 +48,5 @@ MonoBehaviour:
   - {fileID: -1014810569682694295, guid: 98460ca063f28eb4783225fe89e1d40f, type: 3}
   - {fileID: 2552655189641424799, guid: 446faffaf63b10747924ce216212eeae, type: 3}
   - {fileID: 5548245123597398469, guid: 6e6310e615817b04f936fba362bf9be0, type: 3}
+  - {fileID: -4350849801197912881, guid: 75c40332468f2d84d85ea2958f694159, type: 3}
   _zoneRadiusInMeter: 15
