@@ -10,6 +10,7 @@ public class CarControl : TuiControlBase
     private float _lastAngleSpeed;
     private float _currentSpeed;
     private float _maxSpeed = 0.5f * Mathf.PI;
+    private SpeedMeter _speedMeter;
 
     public override void Init(Tuio20Object magnify, FocusView focusView, Action<float> zoom, Action<float> rotate, Action<Vector2> pan)
     {
@@ -36,6 +37,8 @@ public class CarControl : TuiControlBase
     public override void RemoveJoystick()
     {
         _currentSpeed = 0f;
+        Destroy(_speedMeter.gameObject);
+        _speedMeter = null;
         JoystickToken = null;
     }
     
@@ -62,6 +65,7 @@ public class CarControl : TuiControlBase
         if (JoystickToken == null) return;
         var deltaSpeed = DeltaAngle(JoystickToken.Angle, ref _lastAngleSpeed);
         _currentSpeed = Mathf.Clamp(_currentSpeed + deltaSpeed, 0f, _maxSpeed);
+        _speedMeter.SetNormalizedSpeed(_currentSpeed / _maxSpeed);
         var speed = Mathf.Pow(2f * _currentSpeed, 3);
         var direction = speed * Vector2.down;
         Pan?.Invoke(direction);
@@ -74,5 +78,11 @@ public class CarControl : TuiControlBase
         var deltaAngle = DeltaAngle(ZoomToken.Angle, ref _lastAngleRotation);
         deltaAngle *= Mathf.Rad2Deg;
         Rotate?.Invoke(deltaAngle);
+    }
+
+    public void SpawnSpeedMeter(SpeedMeter speedMeterPrefab)
+    {
+        _speedMeter = Instantiate(speedMeterPrefab, transform.parent.parent);
+        _speedMeter.Init(JoystickToken);
     }
 }

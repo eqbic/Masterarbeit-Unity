@@ -5,6 +5,7 @@ public class FocusMapControlTui : FocusMapControlBase
 {
     [SerializeField] private TuiControl _tuiControlType = TuiControl.Joystick;
     [SerializeField] private TuiJoystickDeadzone _deadzonePrefab;
+    [SerializeField] private SpeedMeter _speedMeterPrefab;
 
     private TuiControlBase _tuiControl;
 
@@ -33,6 +34,11 @@ public class FocusMapControlTui : FocusMapControlBase
         if (_tuiControlType == TuiControl.Joystick)
         {
             ((JoystickControl)_tuiControl).SpawnDeadzone(_deadzonePrefab);
+        }
+
+        if (_tuiControlType == TuiControl.Car)
+        {
+            ((CarControl)_tuiControl).SpawnSpeedMeter(_speedMeterPrefab);
         }
     }
 
