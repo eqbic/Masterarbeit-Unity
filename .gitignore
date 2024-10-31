@@ -76,3 +76,6 @@ crashlytics-build.properties
 
 ## external packages
 /[Aa]ssets/Infinity Code
+
+## Recorded Tracks
+/[Aa]ssets/GPX
