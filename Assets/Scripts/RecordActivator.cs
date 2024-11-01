@@ -80,7 +80,7 @@ public class RecordActivator : MonoBehaviour
     {
         _currentTrack = _possibleNextTrack;
         print("Start Record");
-        _recorder.StartRecord();
+        _recorder.StartRecord(_currentTrack.Name);
     }
     
     private void StopRecord()

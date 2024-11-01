@@ -35,7 +35,7 @@ public class GpxManager : MonoBehaviour
             var endPoint = gpxObject.tracks[0]?.segments[0]?.points.Last();
             var startCoord = new GeoCoord(startPoint.lon, startPoint.lat);
             var endCoord = new GeoCoord(endPoint.lon, endPoint.lat);
-            var gpxTrack = new GpxTrack(startCoord, endCoord);
+            var gpxTrack = new GpxTrack(track.name, startCoord, endCoord);
             _tracks.Add(gpxTrack);
         }
     }
@@ -45,11 +45,13 @@ public class GpxManager : MonoBehaviour
 
 public class GpxTrack
 {
+    public string Name;
     public GeoCoord Start { get; }
     public GeoCoord End { get; }
 
-    public GpxTrack(GeoCoord start, GeoCoord end)
+    public GpxTrack(string name, GeoCoord start, GeoCoord end)
     {
+        Name = name;
         Start = start;
         End = end;
     }

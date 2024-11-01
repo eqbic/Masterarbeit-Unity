@@ -48,6 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0c2b5d13f2445939cdce1f74ba86d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tuiControlType: 1
+  _tuiControlType: 0
   _deadzonePrefab: {fileID: 6351242189922168544, guid: 5679e21cbde4e904fba98f0b1654870a, type: 3}
   _speedMeterPrefab: {fileID: 8396502477931356716, guid: 511ff8ca5455aa8449968a27c8382d51, type: 3}
