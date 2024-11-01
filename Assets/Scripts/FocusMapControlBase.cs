@@ -11,7 +11,7 @@ public abstract class FocusMapControlBase : MonoBehaviour
     protected FocusView FocusView;
     public string InputTypeCode { get; protected set; }
 
-    public void Init(FocusView focusView)
+    public virtual void Init(FocusView focusView)
     {
         FocusView = focusView;
     }

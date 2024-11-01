@@ -25,10 +25,21 @@ public class FocusMapControlTouch : FocusMapControlBase
     // private float _minZoom = 8f;
     // private float _maxZoom = 21f;
 
-    private void Awake()
+    public override void Init(FocusView focusView)
     {
-        if(_controlType == TouchControl.Joystick)
-            CreateJoystick();
+        base.Init(focusView);
+        switch (_controlType)
+        {
+            case TouchControl.Gesture:
+                RegisterGestures();
+                break;
+            case TouchControl.Joystick:
+                CreateJoystick();
+                RegisterJoystick();
+                break;
+        }
+
+        _resetTap.Tapped += ResetView;
     }
 
     private void Start()
@@ -45,22 +56,6 @@ public class FocusMapControlTouch : FocusMapControlBase
         var normalizedZoom = FocusView.CurrentZoom.Remap(8, 21, 0, 1);
         _zoomSlider.Init(transform.parent as RectTransform, _joystick, normalizedZoom);
         _joystick.transform.SetAsLastSibling();
-    }
-
-
-    private void OnEnable()
-    {
-        switch (_controlType)
-        {
-            case TouchControl.Gesture:
-                RegisterGestures();
-                break;
-            case TouchControl.Joystick:
-                RegisterJoystick();
-                break;
-        }
-
-        _resetTap.Tapped += ResetView;
     }
 
     private void RegisterJoystick()
@@ -104,20 +99,6 @@ public class FocusMapControlTouch : FocusMapControlBase
         ResetView();
     }
 
-    private void OnDisable()
-    {
-        switch (_controlType)
-        {
-            case TouchControl.Gesture:
-                UnregisterGestures();
-                break;
-            case TouchControl.Joystick:
-                UnregisterJoystick();
-                break;
-        }
-        _resetTap.Tapped -= ResetView;
-    }
-
     private void UnregisterJoystick()
     {
         _joystick.OnMove -= Pan;
@@ -134,9 +115,17 @@ public class FocusMapControlTouch : FocusMapControlBase
 
     private void OnDestroy()
     {
-        if(_joystick != null)
-            Destroy(_joystick.gameObject);
-        if(_zoomSlider != null)
-            Destroy(_zoomSlider.gameObject);
+        switch (_controlType)
+        {
+            case TouchControl.Gesture:
+                UnregisterGestures();
+                break;
+            case TouchControl.Joystick:
+                UnregisterJoystick();
+                Destroy(_joystick.gameObject);
+                Destroy(_zoomSlider.gameObject);
+                break;
+        }
+        _resetTap.Tapped -= ResetView;
     }
 }
