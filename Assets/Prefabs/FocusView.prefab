@@ -751,6 +751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _record: 0
   _focusView: {fileID: 5657974580616893575}
+  _currentUser: {fileID: 11400000, guid: 39b4a3dd6ca7b3440866f6cfbc3891f4, type: 2}
 --- !u!114 &417986059724166654
 MonoBehaviour:
   m_ObjectHideFlags: 0
