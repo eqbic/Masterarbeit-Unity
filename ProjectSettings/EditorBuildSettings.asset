@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Setup.unity
+    guid: 0f7a5790dba21d44da329649f8e505f6
+  - enabled: 1
     path: Assets/Scenes/TUI.unity
     guid: f94e428a37133174d822e2b32d6279b3
   - enabled: 1
     path: Assets/Scenes/Touch.unity
     guid: 498478ab57e249b4098a52b633a53c04
-  - enabled: 1
-    path: Assets/Scenes/Setup.unity
-    guid: 0f7a5790dba21d44da329649f8e505f6
   m_configObjects: {}
