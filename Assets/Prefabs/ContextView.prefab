@@ -130,8 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86fe5ad0fc4c0ee4391cf37c47a0ec3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _latitude: 52.5226129520142
-  _longitude: 13.415075015106442
+  _latitude: 52.47268282613423
+  _longitude: 13.403966033049329
   _zoom: 12
   _maps: {fileID: 3241745088069015106}
 --- !u!114 &947952725962651778
@@ -229,7 +229,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b549dbd45045ad8c999c3cd41307d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gpxData:
-  - {fileID: 8797908669173068190, guid: edbd712434bf0824f9a2b4ffde9fe5ba, type: 3}
   _view: {fileID: 550532493699095041}
   _drawWidth: 2
