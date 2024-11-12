@@ -3,7 +3,6 @@ using Extensions;
 using TouchScript.Gestures;
 using TouchScript.Gestures.TransformGestures;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class FocusMapControlTouch : FocusMapControlBase
 {
@@ -28,6 +27,7 @@ public class FocusMapControlTouch : FocusMapControlBase
     public override void Init(FocusView focusView)
     {
         base.Init(focusView);
+        _controlType = focusView.CurrentUser.TouchControl;
         switch (_controlType)
         {
             case TouchControl.Gesture:

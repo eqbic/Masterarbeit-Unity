@@ -18,6 +18,7 @@ public class FocusView : ViewBase
     [SerializeField] private FocusMapControlTui _tuiControl;
 
     [SerializeField] private RecordActivator _recordActivator;
+    [field:SerializeField] public UserData CurrentUser { get; private set; }
     
     private GeoCoordChannel _viewFinderChannel;
     private GeoCoordChannel _focusViewChannel;

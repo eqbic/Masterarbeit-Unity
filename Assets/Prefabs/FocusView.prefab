@@ -655,6 +655,7 @@ MonoBehaviour:
   _touchControl: {fileID: 3521574954124074985, guid: 7085e401f474168468312c76ef728ef3, type: 3}
   _tuiControl: {fileID: 2506363027481060249, guid: 5c9c590de6b4f8a4c8eda09d3de9c04e, type: 3}
   _recordActivator: {fileID: 3973121514731010620}
+  <CurrentUser>k__BackingField: {fileID: 11400000, guid: 39b4a3dd6ca7b3440866f6cfbc3891f4, type: 2}
 --- !u!114 &7963340361456085188
 MonoBehaviour:
   m_ObjectHideFlags: 0

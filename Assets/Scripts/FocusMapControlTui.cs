@@ -9,8 +9,16 @@ public class FocusMapControlTui : FocusMapControlBase
 
     private TuiControlBase _tuiControl;
 
-    private void Awake()
+    public void Init(Tuio20Object magnify)
     {
+        _tuiControl.Init(magnify, FocusView, Zoom, Rotate, Pan);
+        InputTypeCode = $"TUI_{_tuiControlType.ToString()}";
+    }
+
+    public override void Init(FocusView focusView)
+    {
+        base.Init(focusView);
+        _tuiControlType = focusView.CurrentUser.TuioControl;
         switch (_tuiControlType)
         {
             case TuiControl.Joystick:
@@ -22,12 +30,6 @@ public class FocusMapControlTui : FocusMapControlBase
         }
     }
 
-    public void Init(Tuio20Object magnify)
-    {
-        _tuiControl.Init(magnify, FocusView, Zoom, Rotate, Pan);
-        InputTypeCode = $"TUI_{_tuiControlType.ToString()}";
-    }
-    
     public void AddJoystick(Tuio20Object joystick)
     {
         _tuiControl.AddJoystick(joystick);
