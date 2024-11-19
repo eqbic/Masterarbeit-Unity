@@ -33,15 +33,7 @@ public class FocusMapControlTui : FocusMapControlBase
     public void AddJoystick(Tuio20Object joystick)
     {
         _tuiControl.AddJoystick(joystick);
-        if (_tuiControlType == TuiControl.Joystick)
-        {
-            ((JoystickControl)_tuiControl).SpawnDeadzone(_deadzonePrefab);
-        }
-
-        if (_tuiControlType == TuiControl.Car)
-        {
-            ((CarControl)_tuiControl).SpawnSpeedMeter(_speedMeterPrefab);
-        }
+        _tuiControl.SpawnDeadzone(_deadzonePrefab);
     }
 
     public void AddZoomToken(Tuio20Object zoomToken)
