@@ -14,7 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MagnifyId>k__BackingField: 37
   <ViewFinderId>k__BackingField: 8
-  <JoystickId>k__BackingField: 14
-  <ZoomTokenId>k__BackingField: 1
-  <SteerId>k__BackingField: 14
-  <GasId>k__BackingField: 1
+  <JoystickId>k__BackingField: 17
+  <ZoomTokenId>k__BackingField: 21
