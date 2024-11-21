@@ -5,8 +5,7 @@ using UnityEngine;
 
 public abstract class TuiControlBase : MonoBehaviour
 {
-    [SerializeField] private float _maxSpeed = 400f;
-    private float _directionFactor = -1f;
+    [SerializeField] protected float _maxSpeed = 600f;
     protected Tuio20Token Magnify;
     protected Tuio20Token JoystickToken;
     protected Tuio20Token ZoomToken;
@@ -19,8 +18,14 @@ public abstract class TuiControlBase : MonoBehaviour
     private TuiJoystickDeadzone _deadzone;
     private System.Numerics.Vector2 _joystickInitialPosition;
     private const float e = 2.71828f;
-    private float _deadZoneRadiusPixel;
+    protected float _deadZoneRadiusPixel;
     private const float _shapeDiameterMM = 74f;
+
+
+    protected float ActivationFunction(float distance)
+    { 
+        return 1 + Mathf.Pow(e, -0.04f * (distance - 120));
+    }
 
 
     public virtual void Init(Tuio20Object magnify, FocusView focusView, Action<float> zoom, Action<float> rotate,
@@ -63,24 +68,30 @@ public abstract class TuiControlBase : MonoBehaviour
         _deadZoneRadiusPixel = DisplayManager.Instance.GetPixelSize((_deadzone.Diameter - _shapeDiameterMM) * 0.5f);
     }
 
-    protected void UpdatePan()
+    private void UpdatePan()
     {
         if (JoystickToken == null) return;
-        
+
+        var direction = GetDirection();
+        var speed = GetSpeed(direction);
+        var moveVector = CalculateMoveVector(direction, speed);
+        if (speed > 0f)
+        {
+            Pan?.Invoke(moveVector);
+        }
+    }
+
+    protected abstract Vector2 CalculateMoveVector(Vector2 direction, float speed);
+
+    private Vector2 GetDirection()
+    {
         var v = (JoystickToken.Position - _joystickInitialPosition).ToUnity();
         v.x *= Screen.width;
         v.y *= -Screen.height;
-        var distance = Mathf.Max(v.magnitude - _deadZoneRadiusPixel, 0f);
-        // var speed = 600f * Mathf.Log(0.015f * distance + 1f);
-        var speed = _maxSpeed / (1 + Mathf.Pow(e, -0.04f * (distance - 120)));
-        // var speed = Mathf.Pow(5f / 100 * distance + 0.8f, 3) + 5f;
-        // print($"distance: {distance} -> speed: {speed}");
-        var direction = v.normalized * (_directionFactor * (speed * 1f * Time.deltaTime));
-        if (distance > 0f)
-        {
-            Pan?.Invoke(direction);
-        }
+        return v;
     }
+
+    protected abstract float GetSpeed(Vector2 direction);
 
     private void Update()
     {

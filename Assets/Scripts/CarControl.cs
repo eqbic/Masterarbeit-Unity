@@ -1,5 +1,6 @@
 ﻿using System;
 using TuioNet.Tuio20;
+using TuioUnity.Utils;
 using UnityEngine;
 
 public class CarControl : TuiControlBase
@@ -36,5 +37,19 @@ public class CarControl : TuiControlBase
         var deltaAngle = DeltaAngle(ZoomToken.Angle, ref _lastAngleRotation);
         deltaAngle *= Mathf.Rad2Deg;
         Rotate?.Invoke(deltaAngle);
+    }
+    
+    protected override Vector2 CalculateMoveVector(Vector2 direction, float speed)
+    {
+        var angle = Vector2.SignedAngle(Vector2.right, direction);
+        direction = angle > 0 ? Vector2.up : Vector2.down;
+        return direction * (-1f * (speed  * 1f * Time.deltaTime));        
+    }
+
+    protected override float GetSpeed(Vector2 direction)
+    {
+        var distance = Mathf.Max(direction.magnitude - _deadZoneRadiusPixel, 0);
+        var v = direction.normalized * distance;
+        return _maxSpeed / ActivationFunction(Mathf.Abs(v.y));
     }
 }

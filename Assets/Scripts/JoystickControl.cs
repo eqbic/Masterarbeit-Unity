@@ -44,4 +44,15 @@ public class JoystickControl : TuiControlBase
         deltaAngle = -deltaAngle * Mathf.Rad2Deg;
         Rotate?.Invoke(deltaAngle);
     }
+    
+    protected override float GetSpeed(Vector2 direction)
+    {
+        var distance = Mathf.Max(direction.magnitude - _deadZoneRadiusPixel, 0f);
+        return _maxSpeed / ActivationFunction(distance);
+    }
+
+    protected override Vector2 CalculateMoveVector(Vector2 direction, float speed)
+    {
+        return direction.normalized * (-1f * (speed * 1f * Time.deltaTime));
+    }
 }
