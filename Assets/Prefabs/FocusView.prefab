@@ -780,8 +780,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inZone: 0
   _timeInZone: 0
-  _startThreshold: 5
-  _endThreshold: 3
+  _startThreshold: 10
+  _endThreshold: 5
   _recordSign: {fileID: 2134239190126420261}
   _recorder: {fileID: 4242473997244951303}
 --- !u!1 &3410708272448031459

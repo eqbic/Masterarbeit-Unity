@@ -479,6 +479,10 @@ PrefabInstance:
       propertyPath: _zoneRadiusInMeter
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 3855868341493176417, guid: f9f94d49731e9274182677254afe2611, type: 3}
+      propertyPath: _gpxTracks.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6265478451349101080, guid: f9f94d49731e9274182677254afe2611, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
