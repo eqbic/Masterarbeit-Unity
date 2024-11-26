@@ -51,7 +51,7 @@ public class GpxRecorder : MonoBehaviour
     public void StartRecord(string trackName)
     {
         _record = true;
-        trackName = $"{trackName}_{_currentUser.UserId}_{_focusView.FocusMapControl.InputTypeCode}_{DateTime.Now:yy-MM-dd-HH-mm-ss}";
+        trackName = $"{_currentUser.UserId}_{trackName}_{_focusView.FocusMapControl.InputTypeCode}_{DateTime.Now:yy-MM-dd-HH-mm-ss}";
         _metaData.author.name = trackName;
         _gpxTrack = new OnlineMapsGPXObject(trackName)
         {
